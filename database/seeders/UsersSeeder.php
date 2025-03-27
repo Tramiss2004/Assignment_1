@@ -16,7 +16,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
         //To add dummy data into memebers table
         for ($i = 1; $i < 10; $i++) {
             DB::table('users')->insert([
@@ -42,21 +41,5 @@ class UsersSeeder extends Seeder
         //     $table->rememberToken();
         //     $table->timestamps();
 
-=======
-       //To add dummy data into memebers table
-       for ($i = 1; $i < 10; $i++) {
-        DB::table('users')->insert([
-            'name' => 'User' . $i, // More readable names
-            'is_admin' => rand(0, 1), // Randomly assign admin role
-            'position' => 'Position ' . $i, // Simulated job position
-            'department' => 'Department ' . $i, // Simulated department
-            'email' => 'user' . $i . '@gbn.my', // Ensures unique emails
-            'password' => bcrypt('password123'), // Securely hashed password
-            'remember_token' => Str::random(10), // Required for authentication
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-    }
->>>>>>> JH_20250328_1
     }
 }
