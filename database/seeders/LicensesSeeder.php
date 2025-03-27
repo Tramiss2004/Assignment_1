@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+=======
+>>>>>>> JH_20250328_1
 class LicensesSeeder extends Seeder
 {
     /**
@@ -33,6 +36,7 @@ class LicensesSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+<<<<<<< HEAD
 
         // Schema::create('licenses', function (Blueprint $table) {
         //     $table->id(); // License ID
@@ -50,5 +54,7 @@ class LicensesSeeder extends Seeder
         // });
     
 
+=======
+>>>>>>> JH_20250328_1
     }
 }
