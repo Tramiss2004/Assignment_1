@@ -37,12 +37,10 @@ Route::delete('/it_asset/{id}', [ITAssetController::class, 'destroy'])->name('it
 
 //create new it asset
 // Show the form to create a new IT asset
-Route::get('/it_asset/create', [ITAssetController::class, 'create'])->name('it_assets.create');
+Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_assets.create');
 
 // Handle form submission to store the new asset
-Route::post('/it_asset', [ITAssetController::class, 'store'])->name('it_assets.store');
-
-
+Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
 
 Route::get('/LoginForStaff', function () {
     return view('LoginForStaff');

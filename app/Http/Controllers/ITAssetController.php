@@ -58,7 +58,7 @@ class ITAssetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'assigned_status' => 'required|in:Assigned,Unassigned',
             'category' => 'required|string|max:255',
@@ -68,17 +68,15 @@ class ITAssetController extends Controller
             'date_purchase' => 'required|date',
             'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
             'status' => 'required|in:Running,Failure',
+            'warranty_available' => 'required|boolean', // Add this line
+            'warranty_due_date' => 'nullable|date',
+            'license_available' => 'required|boolean', // Add this line
+            'license_id' => 'nullable|integer',
+            'user_id' => 'nullable|integer',
         ]);
 
-        ITAsset::create($request->all());
+        ITAsset::create($validatedData);
 
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
-
-=======
-
-class ITAssetController extends Controller
-{
-    //
-
 }
