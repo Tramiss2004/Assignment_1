@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\ITAsset;
 
 class ITAssetController extends Controller
@@ -73,5 +74,11 @@ class ITAssetController extends Controller
 
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
+
+=======
+
+class ITAssetController extends Controller
+{
+    //
 
 }

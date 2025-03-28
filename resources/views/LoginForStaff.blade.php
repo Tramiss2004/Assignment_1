@@ -9,7 +9,7 @@
             <h1>Login (Staff Section)</h1>
         </div>
         <div>
-            <form>
+            <form action="" method="POST">
                 <div>
                     <label for="username">Username:</label>
                     <br>

@@ -8,8 +8,8 @@
             <h1>Login (Admin Section)</h1>
         </div>
         <div>
-            <form>
-            <div>
+            <form action="" method="POST">
+                <div>
                     <label for="username">Username:</label>
                     <br>
                     <input type="text" id="username" name="username"></input><br>
