@@ -23,6 +23,8 @@ class ITAsset extends Model
         return $this->hasMany(ITAssetMaintenance::class, 'it_asset_id');
     }
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'assigned_status',
@@ -39,5 +41,4 @@ class ITAsset extends Model
         'license_id',
         'user_id'
     ];
-    
 }
