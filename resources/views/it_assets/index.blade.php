@@ -1,6 +1,15 @@
 <div class="container">
     <h2>IT Asset List</h2>
-    <table class="table table-bordered"> <!-- Added Bootstrap border -->
+
+    <!-- Search Form -->
+    <form method="GET" action="{{ route('it_assets.index') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search IT Assets" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -16,7 +25,7 @@
                 <td>{{ $asset->id }}</td>
                 <td>{{ $asset->name }}</td>
                 <td>{{ $asset->assigned_status }}</td>
-                <td>{{ $asset->purchase_date }}</td>
+                <td>{{ $asset->date_purchase }}</td>
                 <td>
                     <a href="{{ route('it_assets.show', $asset->id) }}" class="btn btn-info">View</a>
                     <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-warning">Edit</a>
@@ -26,19 +35,12 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
                     </form>
-
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <br>
+    
     <a href="{{ route('it_assets.create') }}" class="btn btn-primary mb-3">New IT Asset</a>
-
-    <style>
-    table, th, td {
-        border: 1px solid black;
-    }
-</style>
 </div>
 <x-footer />
