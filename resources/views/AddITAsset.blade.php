@@ -7,6 +7,12 @@
         <title>Adding the IT Asset Page</title>
     </head>
     <body>
+        <div>
 
+        </div>
+        <div>
+            <form></form>
+        </div>
+        <x-footer />
     </body>
 </html>
