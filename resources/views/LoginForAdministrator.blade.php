@@ -12,25 +12,32 @@
                 <div>
                     <label for="username">Username:</label>
                     <br>
-                    <input type="text" id="username" name="username"></input><br>
-                    <span>
+                    <input type="text" id="username" name="username" placeholder="Enter Username"></input><br>
+                    <span style ="color: red;">
                         @error('username')
                             {{$message}}
                         @enderror
                     </span>
                     <br>
                 </div>
+
                 <div>
                     <label for="password">Password:</label>
                     <br>
                     <input type="password" id="password" name="password"></input><br>
-                    <span>
+                    <span style ="color: red;">
                         @error('username')
                             {{$message}}
                         @enderror
                     </span>
                     <br>
                 </div>
+
+                <div>
+                    <input type="hidden" name="is_admin" value="1"></input>
+                    <br>
+                </div>
+
                 <button type="submit">Submit</button>
             </form>
         </div>

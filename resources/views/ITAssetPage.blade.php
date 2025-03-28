@@ -8,3 +8,5 @@
 <p><strong>model:</strong> {{ $data->model }}</p>
 <p><strong>operating_system:</strong> {{ $data->operating_system }}</p>
 <p><strong>status:</strong> {{ $data->status }}</p>
+
+<x-footer />

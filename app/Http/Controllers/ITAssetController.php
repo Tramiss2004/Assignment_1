@@ -14,11 +14,6 @@ class ITAssetController extends Controller
         return view('it_assets.index', compact('itAssets'));
     }
 
-    public function show($id)
-    {
-        $itAsset = ITAsset::findOrFail($id); // Fetch asset by ID or fail
-        return view('it_assets.show', compact('itAsset'));
-    }
     public function edit($id)
     {
         $itAsset = ITAsset::findOrFail($id); // Get the IT asset by ID
@@ -58,32 +53,31 @@ class ITAssetController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'assigned_status' => 'required|in:Assigned,Unassigned',
             'category' => 'required|string|max:255',
-            'brand' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'operating_system' => 'required|string|max:255',
             'date_purchase' => 'required|date',
             'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
             'status' => 'required|in:Running,Failure',
+            'warranty_available' => 'required|boolean', // Add this line
+            'warranty_due_date' => 'nullable|date',
+            'license_available' => 'required|boolean', // Add this line
+            'license_id' => 'nullable|integer',
+            'user_id' => 'nullable|integer',
         ]);
-
-        ITAsset::create($request->all());
-
+ 
+        ITAsset::create($validatedData);
+ 
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
-}
 
-class ITAssetController extends Controller
-{
     public function show($id)
     {
         $data = ITAsset::find($id); // Fetch user by ID
 
-    if (!$data) {
-        abort(404); // Show a 404 error if user is not found
+        if (!$data) {
+            abort(404); // Show a 404 error if user is not found
     }
 
     return view("ITAssetPage", ['data' => $data]);

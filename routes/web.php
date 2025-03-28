@@ -22,6 +22,19 @@ Route::get('/', function () {
     return view('MainPage');
 });
 
+// login page section 
+
+Route::get('/LoginForStaff', function () {
+    return view('LoginForStaff');
+});
+
+Route::get('/LoginForAdmin', function () {
+    return view('LoginForAdministrator');
+});
+
+Route::view('MenuForAdmin', 'MenuForAdmin');
+Route::view('MenuForStaff', 'MenuForStaff');
+
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
 
@@ -42,20 +55,10 @@ Route::get('/it_asset/create', [ITAssetController::class, 'create'])->name('it_a
 // Handle form submission to store the new asset
 Route::post('/it_asset', [ITAssetController::class, 'store'])->name('it_assets.store');
 
-
-
-Route::get('/LoginForStaff', function () {
-    return view('LoginForStaff');
-});
-
-// Route::get(''
-
-// );
-
-Route::get('/LoginForAdmin', function () {
-    return view('LoginForAdministrator');
-});
+// Profile Page 
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
+
+// It asset details page 
 
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
