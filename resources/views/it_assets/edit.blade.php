@@ -29,3 +29,4 @@
             <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+<x-footer />

@@ -48,6 +48,10 @@ Route::get('/LoginForStaff', function () {
     return view('LoginForStaff');
 });
 
+// Route::get(''
+
+// );
+
 Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });

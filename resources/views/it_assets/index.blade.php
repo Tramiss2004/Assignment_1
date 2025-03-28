@@ -41,3 +41,4 @@
     }
 </style>
 </div>
+<x-footer />

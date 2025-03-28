@@ -20,3 +20,4 @@
     </table>
     <a href="{{ route('it_assets.index') }}" class="btn btn-primary">Back to List</a>
 </div>
+<x-footer />
