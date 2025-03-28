@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ITAsset extends Model
 {
     use HasFactory;
+
     // Define the table name if it doesn't follow Laravel's naming convention
     protected $table = 'it_assets';
 

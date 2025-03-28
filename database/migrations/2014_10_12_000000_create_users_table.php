@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->tinyInteger('is_admin'); //0 or 1 to indicate false or true, 0 being false- not admin, normal staff, 1 being true, is admin)
-            $table->string('position');;
+            $table->string('position');
             $table->string('department');
             $table->string('email')->unique();
             $table->string('password');
