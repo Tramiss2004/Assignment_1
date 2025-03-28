@@ -8,11 +8,26 @@ use App\Models\ITAsset;
 
 class ITAssetController extends Controller
 {
-    public function index() // Define a function
+    public function index(Request $request)
     {
-        $itAssets = ITAsset::all(); // Fetch all IT Assets from database
+        $query = ITAsset::query();
+    
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('serial_no', 'LIKE', "%{$search}%")
+                  ->orWhere('category', 'LIKE', "%{$search}%")
+                  ->orWhere('brand', 'LIKE', "%{$search}%")
+                  ->orWhere('model', 'LIKE', "%{$search}%")
+                  ->orWhere('operating_system', 'LIKE', "%{$search}%")
+                  ->orWhere('assigned_status', 'LIKE', "%{$search}%");
+        }
+    
+        $itAssets = $query->get();
+    
         return view('it_assets.index', compact('itAssets'));
     }
+    
 
     public function show($id)
     {
