@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ITAssetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,7 @@ Route::get('/LoginForStaff', function () {
 Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
+
+Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
+
+Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
