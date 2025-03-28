@@ -72,6 +72,9 @@ class ITAssetController extends Controller
             'name' => 'required|string|max:255',
             'assigned_status' => 'required|in:Assigned,Unassigned',
             'category' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'operating_system' => 'required|string|max:255',
             'date_purchase' => 'required|date',
             'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
             'status' => 'required|in:Running,Failure',
@@ -83,7 +86,7 @@ class ITAssetController extends Controller
         ]);
  
         ITAsset::create($validatedData);
-
+ 
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
