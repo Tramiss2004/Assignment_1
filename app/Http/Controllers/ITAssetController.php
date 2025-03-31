@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\ITAsset;
+use App\Models\User;
+
 
 class ITAssetController extends Controller
 {
@@ -68,9 +70,9 @@ class ITAssetController extends Controller
 
     public function create()
     {
-        return view('it_assets.create');
+        $users = User::all(); // Fetch all users from the database
+        return view('it_assets.create', compact('users'));
     }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -83,15 +85,25 @@ class ITAssetController extends Controller
             'date_purchase' => 'required|date',
             'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
             'status' => 'required|in:Running,Failure',
-            'warranty_available' => 'required|boolean', // Add this line
             'warranty_due_date' => 'nullable|date',
-            'license_available' => 'required|boolean', // Add this line
+            'license_available' => 'required|in:1,0',
             'license_id' => 'nullable|integer',
             'user_id' => 'nullable|integer',
         ]);
-
+    
+        // Convert 'Yes'/'No' to 1/0 for warranty_available
+        $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
+    
+        // Ensure assigned user is only set if status is "Assigned"
+        if ($validatedData['assigned_status'] === 'Assigned') {
+            $validatedData['user_id'] = $request->input('assigned_user_id'); 
+        } else {
+            $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
+        }
+    
         ITAsset::create($validatedData);
-
+    
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
+    
 }
