@@ -18,8 +18,6 @@ class UserController extends Controller
 
     return view("ProfilePage", [
         'data' => $data,
-        'prevUser' => $prevUser,
-        'nextUser' => $nextUser
     ]);
     }
 }
