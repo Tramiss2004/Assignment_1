@@ -17,31 +17,32 @@ class IT_Asset_License_DetailsSeeder extends Seeder
      */
     public function run()
     {
-        //To add dummy data into memebers table
+        //To add dummy data into it_asset_license_details table
+
+        // Fetch random IT asset and license IDs
+        $itAssetIds = DB::table('it_assets')->pluck('id')->toArray();
+        $licenseIds = DB::table('licenses')->pluck('id')->toArray();
+
+        if (empty($itAssetIds) || empty($licenseIds)) {
+            $this->command->warn('No IT assets or licenses found. Please seed them first.');
+            return;
+        }
+
         for ($i = 1; $i <= 10; $i++) {
-            $assigned = rand(0, 1) ? 'Assigned' : 'Unassigned';
-            $hasWarranty = rand(0, 1);
-            $hasLicense = rand(0, 1);
-            $purchaseDate = Carbon::now()->subDays(rand(30, 365))->toDateString(); // Random purchase date within last year
-            
-            DB::table('it_assets')->insert([
-                'name' => 'Asset ' . $i,
-                'assigned_status' => $assigned,
-                'category' => 'Category ' . $i,
-                'brand' => 'Brand ' . $i,
-                'model' => 'Model ' . $i,
-                'operating_system' => rand(0, 1) ? 'Windows' : 'Linux',
-                'date_purchase' => $purchaseDate,
-                'serial_no' => strtoupper(Str::random(12)), // Unique serial number
-                'status' => rand(0, 1) ? 'Running' : 'Failure',
-                'warranty_available' => $hasWarranty,
-                'warranty_due_date' => $hasWarranty ? Carbon::parse($purchaseDate)->addYear()->toDateString() : null, // Warranty valid for 1 year
-                'license_available' => $hasLicense,
-                'license_id' => $hasLicense ? rand(1, 10) : null, // Random license ID if available
-                'user_id' => $assigned === 'Assigned' ? rand(1, 10) : null, // Assign a user only if status is 'Assigned'
-                'created_at' => now(),
-                'updated_at' => now(),
+            DB::table('it_asset_license_details')->insert([
+                'it_asset_id' => $itAssetIds[array_rand($itAssetIds)],
+                'license_id' => $licenseIds[array_rand($licenseIds)],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
+
+        
+        // Schema::create('it_asset_license_details', function (Blueprint $table) {
+        //     $table->id(); // IT Asset and License Detail ID
+        //     $table->foreignId('it_asset_id')->constrained('it_assets')->onDelete('cascade');
+        //     $table->foreignId('license_id')->constrained('licenses')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 }
