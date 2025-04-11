@@ -25,3 +25,7 @@ Route::get('/LoginForStaff', function () {
 Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
+
+Route::get('/ProfilePage/{id}', function () {
+    return view('ProfilePage');
+});
