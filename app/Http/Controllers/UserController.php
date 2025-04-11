@@ -16,10 +16,6 @@ class UserController extends Controller
         return abort(404, "User not found");
     }
 
-    // Get the previous and next users
-    $prevUser = User::where('id', '<', $id)->orderBy('id', 'desc')->first();
-    $nextUser = User::where('id', '>', $id)->orderBy('id', 'asc')->first();
-
     return view("ProfilePage", [
         'data' => $data,
         'prevUser' => $prevUser,
