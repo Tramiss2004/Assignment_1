@@ -15,7 +15,7 @@
     @foreach ($data->getAttributes() as $key => $value)
         <div class="row">
             <div class="label">{{ str_replace('_', ' ', $key) }}</div>
-            <div class="value">{{ $value ?? 'null' }}</div>
+            <div class="value">{{ $value ?? 'N/A' }}</div>
         </div>
     @endforeach
 </div>
