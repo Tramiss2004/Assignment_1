@@ -38,7 +38,6 @@ class IT_AssetsSeeder extends Seeder
                 'warranty_available' => $hasWarranty,
                 'warranty_due_date' => $hasWarranty ? Carbon::parse($purchaseDate)->addYear()->toDateString() : null, // Warranty valid for 1 year
                 'license_available' => $hasLicense,
-                'license_id' => $hasLicense ? rand(1, 10) : null, // Random license ID if available
                 'user_id' => $assigned === 'Assigned' ? rand(1, 10) : null, // Assign a user only if status is 'Assigned'
                 'created_at' => now(),
                 'updated_at' => now(),
