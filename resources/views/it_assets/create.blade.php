@@ -87,9 +87,5 @@
 
         <button type="submit" class="btn btn-success">Create IT Asset</button>
     </form>
-<<<<<<< HEAD
 </div>
 <x-footer />
-=======
-</div>
->>>>>>> origin/AL

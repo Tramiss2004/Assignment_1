@@ -32,11 +32,18 @@ Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
 
-Route::view('MenuForAdmin', 'MenuForAdmin');
-Route::view('MenuForStaff', 'MenuForStaff');
+Route::view('Menu', 'Menu')->name('Menu');
+
+// logout function part 
+Route::get('logout', function(){
+    if(session() -> has('user')){
+        session()->pull('user');
+    }
+    return redirect('MainPage');
+});
 
 //IT_Asset page
-Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
+Route::get('/it_asset/list', [ITAssetController::class, 'index'])->name('it_assets.index');
 
 //view IT_Asset details page
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show'])->name('it_assets.show');
@@ -53,15 +60,11 @@ Route::delete('/it_asset/{id}', [ITAssetController::class, 'destroy'])->name('it
 Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_assets.create');
 
 // Handle form submission to store the new asset
-<<<<<<< HEAD
 Route::post('/it_asset', [ITAssetController::class, 'store'])->name('it_assets.store');
 
 // Profile Page 
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
-=======
-Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
->>>>>>> origin/AL
 
 // It asset details page 
 
