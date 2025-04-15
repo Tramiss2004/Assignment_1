@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('MainPage');
 });
 
-// login page section 
+// login page section
 
 Route::get('/LoginForStaff', function () {
     return view('LoginForStaff');
@@ -53,16 +53,22 @@ Route::delete('/it_asset/{id}', [ITAssetController::class, 'destroy'])->name('it
 Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_assets.create');
 
 // Handle form submission to store the new asset
-<<<<<<< HEAD
+
 Route::post('/it_asset', [ITAssetController::class, 'store'])->name('it_assets.store');
 
-// Profile Page 
+// Profile Page
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
-=======
+
 Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
->>>>>>> origin/AL
 
-// It asset details page 
-
+// It asset specific details page
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
+
+// IT asset page in list
+Route::get('/it_assetListPage', [ITAssetController::class, 'showList'])->name('it_asset.list');
+
+// IT Asset Maintenance Page
+Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show']);
+
+
