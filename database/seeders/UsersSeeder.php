@@ -16,16 +16,28 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        //To add dummy data into memebers table
-        for ($i = 1; $i < 10; $i++) {
+        $departments = ['HR', 'Finance', 'Marketing', 'Sales', 'Operations', 'Customer Service'];
+        $positions = ['Assistant', 'Coordinator', 'Manager', 'Executive', 'Senior Manager', 'Director'];
+        
+        for ($i = 1; $i <= 10; $i++) {
+            $isAdmin = rand(0, 1);
+            
+            if ($isAdmin) {
+                $department = 'IT';
+                $position = ['Executive', 'Senior Executive', 'Manager', 'Senior Manager', 'Director'][array_rand([0, 1, 2, 3, 4])];
+            } else {
+                $department = $departments[array_rand($departments)];
+                $position = $positions[array_rand($positions)];
+            }
+
             DB::table('users')->insert([
-                'name' => 'User' . $i, // More readable names
-                'is_admin' => rand(0, 1), // Randomly assign admin role
-                'position' => 'Position ' . $i, // Simulated job position
-                'department' => 'Department ' . $i, // Simulated department
-                'email' => 'user' . $i . '@gbn.my', // Ensures unique emails
-                'password' => bcrypt('password123'), // Securely hashed password
-                'remember_token' => Str::random(10), // Required for authentication
+                'name' => 'User' . $i,
+                'is_admin' => $isAdmin,
+                'position' => $position,
+                'department' => $department,
+                'email' => 'user' . $i . '@gbn.my',
+                'password' => bcrypt('password123'),
+                'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
