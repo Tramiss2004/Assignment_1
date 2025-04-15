@@ -45,9 +45,8 @@ class ITAssetController extends Controller
     public function showList()
     {
     // Get all ITAsset records from the database
-    $data = ITAsset::all(); // You can also use ->paginate() if you want pagination
+    $data = ITAsset::all();
 
-    // Pass the data to the Blade view named ITAssetListPage.blade.php
     return view('ITAssetListPage', [
         'data' => $data
     ]);

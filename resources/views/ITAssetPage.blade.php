@@ -22,7 +22,7 @@
 
 <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
     <a href="{{ url('/it_assetListPage') }}" class="btn-back">Back To List</a>
-    <a href="{{ url('/it_asset_maintenance/' . $data->id) }}" class="btn-back">Go to IT Asset Maintenance Details</a>
+    <a href="{{ url('/it_asset_maintenance/' . $data->id) }}" class="btn-back">View Maintenance Details</a>
 </div>
 
 </body>
