@@ -14,12 +14,12 @@
         </a>
     </div>
     <div>
-        <a href='/it_asset/list'> <!--to be changed-->
+        <a href='/it_asset.index'> <!--authenticate-->
             <button>IT Asset</button>
         </a>
     </div>
     <div>
-        <a href='/it_asset_maintenance'> <!--to be changed-->
+        <a href='/it_asset_maintenance'> <!--authenticate-->
             <button>IT Asset Maintenance</button>
         </a>
     </div>
@@ -48,7 +48,7 @@
         </a>
     </div>
     <div>
-        <a href=''><!--to be changed-->
+        <a href=''><!--show the list-->
             <button>IT Asset Maintenance</button>
         </a>
     </div>
