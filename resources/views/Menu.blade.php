@@ -43,7 +43,7 @@
         </a>
     </div>
     <div>
-        <a href='/it_asset'>
+        <a href='/it_assets.index'>
             <button>IT Asset</button>
         </a>
     </div>
