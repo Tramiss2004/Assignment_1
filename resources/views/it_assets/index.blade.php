@@ -28,12 +28,14 @@
                 <td>{{ $asset->date_purchase }}</td>
                 <td>
                     <a href="{{ route('it_assets.show', $asset->id) }}" class="btn btn-info">View</a>
+                    <!-- if is admin -->
                     <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-warning">Edit</a>
                    
                     <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
+                    <!-- end if is admin -->
                     </form>
                 </td>
             </tr>

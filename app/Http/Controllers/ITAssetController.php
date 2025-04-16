@@ -94,6 +94,40 @@ class ITAssetController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'assigned_status' => 'required|in:Assigned,Unassigned',
+            'category' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'operating_system' => 'required|string|max:255',
+            'date_purchase' => 'required|date',
+            'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
+            'status' => 'required|in:Running,Failure',
+            'warranty_due_date' => 'nullable|date',
+            'license_available' => 'required|in:1,0',
+            'license_id' => 'nullable|integer',
+            'user_id' => 'nullable|integer',
+        ]);
+// <<<<<<< HEAD
+
+//         ITAsset::create($validatedData);
+
+//         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+//     }
+
+//     public function show($id)
+//     {
+//         $data = ITAsset::find($id); // Fetch user by ID
+
+//         if (!$data) {
+//             abort(404); // Show a 404 error if user is not found
+//     }
+
+//     return view("ITAssetPage", ['data' => $data]);
+//     }
+// }
+// =======
 
         // Convert 'Yes'/'No' to 1/0 for warranty_available
         $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
@@ -111,3 +145,4 @@ class ITAssetController extends Controller
     }
 
 }
+// >>>>>>> origin/AL
