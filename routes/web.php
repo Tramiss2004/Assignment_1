@@ -72,3 +72,7 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
 
 // User List 
+
+
+// Licenses 
+Route::resource('licenses', LicenseController::class);
