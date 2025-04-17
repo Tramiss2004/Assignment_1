@@ -19,17 +19,7 @@
             <p><strong>Email:</strong> {{ $data->email }}</p>
         </div>
 
-        <div class="profile-buttons">
-            <!-- Previous User -->
-            @if ($prevUser)
-                <a href="{{ url('/ProfilePage/' . $prevUser->id) }}" class="prev-user">Previous</a>
-            @endif
 
-            <!-- Next User -->
-            @if ($nextUser)
-                <a href="{{ url('/ProfilePage/' . $nextUser->id) }}" class="next-user">Next</a>
-            @endif
-        </div>
     </div>
 
 </body>
