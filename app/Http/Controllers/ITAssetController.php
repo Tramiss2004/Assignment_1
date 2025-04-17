@@ -90,7 +90,6 @@ class ITAssetController extends Controller
         $users = User::all(); // Fetch all users from the database
         return view('it_assets.create', compact('users'));
     }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -144,4 +143,4 @@ class ITAssetController extends Controller
     }
 
 }
-
+// >>>>>>> origin/AL
