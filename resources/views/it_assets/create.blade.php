@@ -102,7 +102,10 @@
 
         <button type="submit" class="btn btn-success">Create IT Asset</button>
     </form>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 </div>
 
 <script>
@@ -140,4 +143,7 @@
 </script>
 
 <x-footer />
+<<<<<<< HEAD
+=======
 
+>>>>>>> master

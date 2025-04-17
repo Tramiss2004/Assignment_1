@@ -91,7 +91,6 @@ class ITAssetController extends Controller
         return view('it_assets.create', compact('users'));
     }
 
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -145,4 +144,4 @@ class ITAssetController extends Controller
     }
 
 }
-// >>>>>>> origin/AL
+
