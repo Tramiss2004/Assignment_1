@@ -1,4 +1,4 @@
 <div>
     <!-- Well begun is half done. - Aristotle -->
-    <p>&copy; GBN. All Right Reserved.</p>
+    <p style="text-align: center;" >&copy; GBN. All Right Reserved.</p>
 </div>
