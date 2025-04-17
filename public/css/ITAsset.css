@@ -31,10 +31,12 @@ body {
     max-width: 60%;
     text-align: right;
 }
-.btn-back {
+
+.btn-back,
+.btn-update,
+.btn-delete {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #3490dc;
     color: white;
     border: none;
     border-radius: 8px;
@@ -42,8 +44,19 @@ body {
     font-weight: bold;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    margin: 0 10px;
 }
 
+/* Individual button colors */
+.btn-back {
+    background-color: #3490dc;
+}
 .btn-back:hover {
     background-color: #2779bd;
+}
+.btn-update {
+    background-color: #38c172;
+}
+.btn-delete {
+    background-color: #e3342f;
 }

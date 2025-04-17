@@ -14,6 +14,9 @@
             <th>Operation</th>
         </tr>
     </thead>
+
+
+
     <tbody>
         @foreach($data as $item)
         <tr>
@@ -22,8 +25,9 @@
             <td>{{ $item->serial_no }}</td>
             <td>{{ $item->status }}</td>
             <td>
-                <a href="{{ url('it_asset/' . $item->id) }}">View</a>
+            <a href="{{ url('it_asset/' . $item->id) }}">View</a>
             </td>
+
         </tr>
         @endforeach
     </tbody>

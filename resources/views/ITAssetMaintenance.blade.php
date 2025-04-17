@@ -9,6 +9,9 @@
 
 <body>
 
+    @php
+        $mockIsAdmin = true; // Simulate admin or staff login
+    @endphp
 
 <h2 style="text-align: center;">IT Asset Maintenance Details (ID: {{ $data->id }})</h2>
 
@@ -23,6 +26,21 @@
 
 <div style="text-align: center; margin-top: 20px;">
     <a href="{{ url('/it_asset/' . $data->id) }}" class="btn-back">Back to IT Asset Details</a>
+
+
+    @if($mockIsAdmin)
+                <a href="#" class="btn-update">Update</a>
+                <a href="#" class="btn-delete">Delete</a> <!-- Dummy delete button -->
+    @endif
+
+    {{--
+        This is a comment and actual code to use when auth is setup
+    @if(Auth::check() && Auth::user()->is_admin)
+        <a href="#" class="btn-update">Update</a>
+        <a href="#" class="btn-delete">Delete</a>
+    @endif
+    --}}
+
 </div>
 
 </body>
