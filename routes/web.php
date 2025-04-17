@@ -32,7 +32,6 @@ Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
 
-<<<<<<< HEAD
 Route::view('Menu', 'Menu')->name('Menu');
 
 // logout function part
@@ -42,10 +41,6 @@ Route::get('logout', function(){
     }
     return redirect('MainPage');
 });
-=======
-Route::view('MenuForAdmin', 'MenuForAdmin');
-Route::view('MenuForStaff', 'MenuForStaff');
->>>>>>> b28a1d1c065fb735b6b7389dd86e8492fabd9e40
 
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
@@ -68,20 +63,13 @@ Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_
 
 Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
 
-<<<<<<< HEAD
 // Profile Page
-=======
-
-
-// Profile Page 
->>>>>>> b28a1d1c065fb735b6b7389dd86e8492fabd9e40
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 
 // It asset details page
 
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
-<<<<<<< HEAD
 
 // User List
 
@@ -91,8 +79,3 @@ Route::resource('licenses', LicenseController::class);
 
 // User List
 
-
-// Licenses
-Route::resource('licenses', LicenseController::class);
-=======
->>>>>>> b28a1d1c065fb735b6b7389dd86e8492fabd9e40
