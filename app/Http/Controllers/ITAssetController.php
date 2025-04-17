@@ -13,7 +13,7 @@ class ITAssetController extends Controller
     public function index(Request $request)
     {
         $query = ITAsset::query();
-    
+
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('name', 'LIKE', "%{$search}%")
@@ -24,12 +24,33 @@ class ITAssetController extends Controller
                   ->orWhere('operating_system', 'LIKE', "%{$search}%")
                   ->orWhere('assigned_status', 'LIKE', "%{$search}%");
         }
-    
+
         $itAssets = $query->get();
-    
+
         return view('it_assets.index', compact('itAssets'));
     }
-    
+
+    public function show($id){
+        $data = ITAsset::find($id);
+
+    if (!$data) {
+        return abort(404, "Asset not found");
+    }
+
+    return view("ITAssetPage", [
+        'data' => $data,
+    ]);
+    }
+
+    public function showList()
+    {
+    // Get all ITAsset records from the database
+    $data = ITAsset::all();
+
+    return view('ITAssetListPage', [
+        'data' => $data
+    ]);
+    }
 
     public function edit($id)
     {
@@ -44,17 +65,17 @@ class ITAssetController extends Controller
             'assigned_status' => 'required|in:Assigned,Unassigned',
             'date_purchase' => 'required|date',
         ]);
-    
+
         $itAsset = ITAsset::findOrFail($id);
         $itAsset->update([
             'name' => $request->name,
             'assigned_status' => $request->assigned_status,
             'date_purchase' => $request->date_purchase,
         ]);
-    
+
         return redirect()->route('it_assets.index')->with('success', 'IT Asset updated successfully!');
     }
-    
+
     public function destroy($id)
     {
         $itAsset = ITAsset::findOrFail($id);
@@ -62,6 +83,7 @@ class ITAssetController extends Controller
 
         return redirect()->route('it_assets.index')->with('success', 'IT Asset deleted successfully!');
     }
+
 
     public function create()
     {
@@ -86,9 +108,9 @@ class ITAssetController extends Controller
             'user_id' => 'nullable|integer',
         ]);
 // <<<<<<< HEAD
- 
+
 //         ITAsset::create($validatedData);
- 
+
 //         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
 //     }
 
@@ -104,21 +126,21 @@ class ITAssetController extends Controller
 //     }
 // }
 // =======
-    
+
         // Convert 'Yes'/'No' to 1/0 for warranty_available
         $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
-    
+
         // Ensure assigned user is only set if status is "Assigned"
         if ($validatedData['assigned_status'] === 'Assigned') {
-            $validatedData['user_id'] = $request->input('assigned_user_id'); 
+            $validatedData['user_id'] = $request->input('assigned_user_id');
         } else {
             $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
         }
-    
+
         ITAsset::create($validatedData);
-    
+
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
-    
+
 }
 // >>>>>>> origin/AL
