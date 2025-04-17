@@ -1,0 +1,62 @@
+/* IT asset Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f5f5f5;
+}
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.row:last-child {
+    border-bottom: none;
+}
+.label {
+    font-weight: bold;
+    color: #555;
+    text-transform: capitalize;
+}
+.value {
+    color: #333;
+    max-width: 60%;
+    text-align: right;
+}
+
+.btn-back,
+.btn-update,
+.btn-delete {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin: 0 10px;
+}
+
+/* Individual button colors */
+.btn-back {
+    background-color: #3490dc;
+}
+.btn-back:hover {
+    background-color: #2779bd;
+}
+.btn-update {
+    background-color: #38c172;
+}
+.btn-delete {
+    background-color: #e3342f;
+}

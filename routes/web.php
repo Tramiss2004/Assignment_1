@@ -41,7 +41,8 @@ Route::get('logout', function(){
     }
     return redirect('MainPage');
 });
-// >>>>>>> 5fb2e0dc2bd1baefe63ccaf91a193247b12a47df
+Route::view('MenuForAdmin', 'MenuForAdmin');
+Route::view('MenuForStaff', 'MenuForStaff');
 
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
@@ -64,6 +65,9 @@ Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_
 
 Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
 
+
+
+
 // Profile Page
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
@@ -71,11 +75,15 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 // It asset specific details page
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
 
+// IT asset page in list
+Route::get('/it_assetListPage', [ITAssetController::class, 'showList'])->name('it_asset.list');
+
+// IT Asset Maintenance Page
+Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show']);
+
+
 // User List
 
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
-
-// User List
-
