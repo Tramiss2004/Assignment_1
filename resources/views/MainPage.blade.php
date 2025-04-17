@@ -1,31 +1,33 @@
-<DOCTYPE! html>
+<DOCTYPE! html> 
 
 <html>
     <head>
         <title>GBN</title>
-        <link rel="stylesheet" href="{{ asset('css/MainPage.css') }}">
     </head>
-
-    <div class="main-container">
-        <h1>Welcome to GBN</h1>
-
-        <h2>Please choose login method.</h2>
-
-        <div class="button-wrapper">
-            <a href="/LoginForStaff">
-                <button>Staff Login</button>
-            </a>
+    <body>
+        <div>
+            <h1>Welcome to GBN</h1>
         </div>
-
-        <div class="button-wrapper">
-            <a href="/LoginForAdmin">
-                <button>Admin Login</button>
-            </a>
+        <div>
+            <div>
+                <h2>Please choose one of them to login.</h2>
+            </div>
+            <div>
+                <a href="/LoginForStaff">
+                    <button>
+                        Staff Login
+                    </button>
+                </a>
+            </div> 
+            <br> 
+            <div>
+                <a href="/LoginForAdmin">
+                    <button>
+                        Admin Login
+                    </button>
+                </a>
+            </div>    
         </div>
-    </div>
-
-    <x-footer />
-
-</body>
-
+        <x-footer />
+    </body>
 </html>
