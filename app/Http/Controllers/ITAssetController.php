@@ -27,7 +27,6 @@ class ITAssetController extends Controller
     
         $itAssets = $query->get();
     
-        // if user is_admin == 0, extra query where 'assigned_user' is user ==session user id
         return view('it_assets.index', compact('itAssets'));
     }
     
