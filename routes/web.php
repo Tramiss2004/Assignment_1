@@ -41,6 +41,7 @@ Route::get('logout', function(){
     }
     return redirect('MainPage');
 });
+// >>>>>>> 5fb2e0dc2bd1baefe63ccaf91a193247b12a47df
 
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
@@ -67,8 +68,7 @@ Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 
-// It asset details page
-
+// It asset specific details page
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
 
 // User List
