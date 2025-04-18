@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="{{ asset('css/ITAssetList.css') }}">
     </head>
 <div class="container">
-    
-<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap search-container">
+
+<div class="d-flex justify-content-between  mb-3 flex-wrap search-container">
     <!-- Search Form -->
     <form method="GET" action="{{ route('it_assets.index') }}" class="d-flex flex-row mb-2 mb-md-0">
         <input type="text" name="search" class="form-control me-2" placeholder="Search IT Assets" value="{{ request('search') }}">
@@ -41,7 +41,7 @@
                     <a href="{{ route('it_assets.show', $asset->id) }}" class="btn btn-back">View</a>
                     <!-- if is admin -->
                     <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-update">Edit</a>
-                   
+
                     <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
@@ -53,6 +53,6 @@
             @endforeach
         </tbody>
     </table>
-    
+
 </div>
 <x-footer />

@@ -81,8 +81,11 @@ Route::get('/it_assetListPage', [ITAssetController::class, 'showList'])->name('i
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
-// User List
+// IT Asset CRUD
+Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
+Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::class, 'update']);
 
+Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController::class, 'destroy']);
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
