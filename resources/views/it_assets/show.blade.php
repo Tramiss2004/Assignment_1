@@ -9,16 +9,19 @@
 <body>
 
 
-<h2 style="text-align: center;">IT Asset Details (ID: {{ $data->id }})</h2>
-
-<div class="card">
-    @foreach ($data->getAttributes() as $key => $value)
-        <div class="row">
-            <div class="label">{{ str_replace('_', ' ', $key) }}</div>
-            <div class="value">{{ $value ?? 'N/A' }}</div>
-        </div>
-    @endforeach
-</div>
+<h2 style="text-align: center;">IT Asset Details (ID: {{ $userData->asset_id }})</h2>
+@if ($userData)
+    <div class="card">
+        @foreach (get_object_vars($userData) as $key => $value)
+            <div class="row">
+                <div class="label">{{ str_replace('_', ' ', $key) }}</div>
+                <div class="value">{{ $value ?? 'N/A' }}</div>
+            </div>
+        @endforeach
+    </div>
+@else
+    <p style="text-align: center;">No user data linked to this asset.</p>
+@endif
 
 <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
     <a href="{{ url('/it_assets') }}" class="btn-back">Back To List</a>
