@@ -72,12 +72,6 @@ Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 
-// It asset specific details page
-Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
-
-// IT asset page in list
-Route::get('/it_assetListPage', [ITAssetController::class, 'showList'])->name('it_asset.list');
-
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
