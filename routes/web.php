@@ -43,7 +43,6 @@ Route::get('logout', function(){
 });
 Route::view('MenuForAdmin', 'MenuForAdmin');
 Route::view('MenuForStaff', 'MenuForStaff');
->>>>>>> b28a1d1c065fb735b6b7389dd86e8492fabd9e40
 
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
@@ -65,11 +64,6 @@ Route::delete('/it_asset/{id}', [ITAssetController::class, 'destroy'])->name('it
 Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_assets.create');
 
 Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
-
-<<<<<<< HEAD
-// Profile Page
-=======
-
 
 // Profile Page
 
