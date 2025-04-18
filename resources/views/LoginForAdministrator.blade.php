@@ -9,6 +9,7 @@
             <h1>Login (Admin Section)</h1>
             <div>
                 <form action="{{ url('LoginForAdmin') }}" method="POST">
+                    @csrf
                     <div>
                         <label for="username">Username:</label>
                         <br>

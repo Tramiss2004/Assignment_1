@@ -2,16 +2,16 @@
 <html>
 
     <head>
-            <title>GBN</title>
+            <title>GBN Home Page</title>
             <link rel="stylesheet" href="{{ asset('css/MainPage.css') }}">
     </head>
 
     <body>
         <div class="main-container">
-            <h1>Welcome to GBN. {{ session('user') }}</h1>
+            <h1>Hi. {{ session('name') }}</h1>
         </div>
 
-        @if(session('role') === 0)
+        @if(Auth::user()->isStaff())
         <div class="main-container">
             <h1>Menu For Staff</h1>
         </div>
@@ -23,12 +23,12 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_assets/list'> <!--authenticate-->
+                <a href='/it_assets/list'>
                     <button>IT Asset</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_asset_maintenance'> <!--authenticate-->
+                <a href='/it_asset_maintenance'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
@@ -39,15 +39,14 @@
             </div>
         </div>
 
-
-        @elseif(session('role') === 1)
+        @elseif(Auth::user()->isAdmin())
         <div class="main-container">
             <h1>Menu For Administrator</h1>
         </div>
 
         <div class="main-container">
             <div class="button-wrapper">
-                <a href='/ProfilePage/{id}'>
+                <a href='/ProfilePage/{{ session("user_id") }}'>
                     <button>Profile Page</button>
                 </a>
             </div>
@@ -72,16 +71,19 @@
                 </a>
             </div>
         </div>
+
         @else
             <div class="main-container">
-                <h1>Sorry, you can't access in this system. </h1>
+                <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
         @endif
 
-        <div class="button-wrapper">
-            <a href="/">
-                <button>Log out </button>
-            </a>
+        <div class="main-container">
+            <div class="button-wrapper">
+                <a href="/">
+                    <button>Log out </button>
+                </a>
+            </div>
         </div>
 
         <x-footer />

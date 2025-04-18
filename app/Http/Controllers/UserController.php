@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookies;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,15 +20,15 @@ class UserController extends Controller
             ]
         );
 
-        $user = User::where('name', $request->username)->first();
-
-        if($user && Hash::check($request->password, $user->password)){
-            $request->session()->put('user', $user->username);
-            $request->session()->put('role', $user->is_admin);
+        if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
+            $user = User::where('name', $request->username)->first();
+            $request->session()->put('name', $user->name);
             $request->session()->put('user_id', $user->id);
-            return redirect()->route('Menu')->with('success', 'Login successful!');
-        }else {
-            return redirect('/')->with('error', 'Invalid credentials!');
+            // Login successful, redirect to menu
+            return redirect()->intended('/Menu');
+        } else {
+            // Login failed, redirect back with error message
+            return back()->withInput($request->only('username'))->withErrors(['password' => 'Invalid credentials']);
         }
     }
 

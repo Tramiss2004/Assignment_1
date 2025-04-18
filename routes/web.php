@@ -38,18 +38,12 @@ Route::get('/LoginForAdmin', function () {
 
 Route::post('/LoginForAdmin', [UserController::class, 'login']);
 
-Route::get('Menu', function() {
-    if(!session()->has('user')){
-        return redirect('/');
-    }
+Auth::routes();
+
+Route::get('/Menu', function(){
     return view('Menu');
-})->name('Menu');
+})->middleware('auth');
 
-// Route::view('/Menu', 'Menu')->name('Menu')->middleware('auth'); // Middleware to check authentication
-
-Route::view('/MenuForAdmin', 'MenuForAdmin')->name('MenuForAdmin'); 
-
-Route::view('/MenuForStaff', 'MenuForStaff')->name('MenuForStaff');
 
 // logout function part 
 Route::get('logout', function(){

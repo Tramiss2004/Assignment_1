@@ -19,8 +19,13 @@
             <p><strong>Email:</strong> {{ $data->email }}</p>
         </div>
 
+        <div class="button-wrapper">
+            <a href="/Menu">
+                <button>Back</button>
+            </a>
+        </div>
 
-        <x-footer />
+        
     </div>
     <x-footer />
 </body>
