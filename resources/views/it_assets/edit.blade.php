@@ -1,6 +1,6 @@
 <head>
     <!-- Link CSS -->
-    <link rel="stylesheet" href="{{ asset('css/ITAsset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ITAssetCreate.css') }}">
 </head>
 <div class="container">
     <h2>Update IT Asset</h2>
@@ -68,8 +68,8 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Asset</button>
-        <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-success">Update Asset</button>
+        <a href="{{ route('it_assets.index') }}" class="btn btn-back">Cancel</a>
     </form>
 </div>
 <!-- >>>>>>> origin/AL -->

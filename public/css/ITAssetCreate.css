@@ -1,0 +1,172 @@
+/* public/css/ITAssetForm.css */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Common sans-serif stack */
+    background-color: #f4f7f9; /* Light grey background like the image */
+    margin: 0;
+    padding: 20px; /* Add padding around the container */
+    color: #333; /* Default text color */
+}
+
+.container {
+    max-width: 800px; /* Adjust width as needed */
+    margin: 40px auto; /* Center the container with top/bottom margin */
+    background-color: #ffffff; /* White background for the form area */
+    padding: 30px 40px; /* Generous padding inside the container */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 8px; /* Slightly rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+}
+
+.container h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 35px; /* Space below the heading */
+    color: #2c3e50; /* Darker heading color */
+    font-weight: 600;
+}
+
+/* --- Form Styling --- */
+
+form {
+    margin-top: 20px; /* Space between heading/errors and form */
+}
+
+/* Style form groups (using mb-3 class from your HTML) */
+.mb-3 {
+    margin-bottom: 25px; /* Consistent spacing between form fields */
+}
+
+/* Style form labels */
+.form-label {
+    display: block; /* Ensure label is on its own line */
+    font-weight: 600; /* Make labels slightly bolder */
+    margin-bottom: 8px; /* Space between label and input */
+    color: #555; /* Slightly muted label color */
+    font-size: 0.95rem;
+}
+
+/* Style form inputs, selects */
+.form-control {
+    width: 100%;
+    padding: 12px 15px; /* Comfortable padding */
+    border: 1px solid #ced4da; /* Standard input border */
+    border-radius: 5px; /* Match container rounding */
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.form-control:focus {
+    border-color: #80bdff; /* Highlight focus */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+/* Readonly fields styling */
+.form-control[readonly] {
+    background-color: #e9ecef; /* Grey out readonly fields */
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+/* Select specific styling for dropdown arrow */
+select.form-control {
+    appearance: none; /* Remove default system appearance */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236c757d%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 10px 10px;
+    padding-right: 40px; /* Make space for the arrow */
+}
+
+/* --- Button Styling --- */
+/* Style the submit button to look like the blue buttons in the image */
+.btn-success, .btn-back { /* Overriding the default Bootstrap success */
+    display: block; /* Make button block level */
+    width: fit-content; /* Adjust width to content */
+    margin: 40px auto 0 auto; /* Center the button horizontally, add top margin */
+    padding: 12px 30px; /* Button padding */
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff; /* White text */
+    background-color: #007bff; /* Blue background like image buttons */
+    border: 1px solid #007bff; /* Matching border */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-success:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+}
+
+/* --- Error Message Styling --- */
+.alert.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 25px; /* Space below the alert */
+}
+
+.alert.alert-danger ul {
+    margin: 0;
+    padding-left: 20px; /* Indent list items */
+}
+
+.alert.alert-danger li {
+    margin-bottom: 5px; /* Space between error messages */
+}
+.alert.alert-danger li:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Footer Placeholder --- */
+/* Add styling for your <x-footer /> component if needed */
+/* Example:
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid #e0e0e0;
+}
+*/
+
+/* --- Add Red Asterisk for Required Fields --- */
+
+/* Select the label within a .mb-3 container that HAS a direct child .form-control with the 'required' attribute */
+.mb-3:has(> .form-control[required]) .form-label::after {
+    content: " *"; /* The asterisk content, prefixed with a space */
+    color: #dc3545; /* A standard Bootstrap danger/red color */
+    font-weight: bold; /* Make the asterisk stand out */
+    margin-left: 2px; /* Optional: tiny extra space if needed */
+    /* No need for vertical-align or font-size adjustments usually */
+}
+
+/* Optional: If you also want to style labels for required checkboxes/radios (if any) */
+/* Adjust selector as needed based on your HTML structure for checkboxes/radios */
+/*
+.form-check:has(> .form-check-input[required]) .form-check-label::after {
+    content: " *";
+    color: #dc3545;
+    font-weight: bold;
+    margin-left: 2px;
+}
+*/
+
+
+
+/* Individual button colors */
+.btn-back {
+    background-color: #3490dc;
+}
