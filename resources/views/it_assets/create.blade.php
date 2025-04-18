@@ -1,3 +1,8 @@
+<head>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="{{ asset('css/ITAsset.css') }}">
+</head>
+
 <div class="container">
     <h2>Create New IT Asset</h2>
 

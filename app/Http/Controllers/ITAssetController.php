@@ -37,20 +37,20 @@ class ITAssetController extends Controller
         return abort(404, "Asset not found");
     }
 
-    return view("ITAssetPage", [
+    return view("it_assets.show", [
         'data' => $data,
     ]);
     }
 
-    public function showList()
-    {
-    // Get all ITAsset records from the database
-    $data = ITAsset::all();
+    // public function showList()
+    // {
+    // // Get all ITAsset records from the database
+    // $data = ITAsset::all();
 
-    return view('ITAssetListPage', [
-        'data' => $data
-    ]);
-    }
+    // return view('it_assets.index', [
+    //     'data' => $data
+    // ]);
+    // }
 
     public function edit($id)
     {

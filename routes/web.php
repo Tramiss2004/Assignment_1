@@ -65,6 +65,9 @@ Route::get('/it_assets/create', [ITAssetController::class, 'create'])->name('it_
 
 Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.store');
 
+
+
+
 // Profile Page
 
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
@@ -84,4 +87,3 @@ Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, '
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
-
