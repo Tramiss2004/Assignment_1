@@ -81,3 +81,6 @@ Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, '
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
