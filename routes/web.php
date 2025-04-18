@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\ITAssetController;
 use App\Http\Controllers\ITAssetLicenseDetailController;
 use App\Http\Controllers\ITAssetMaintenanceController;
@@ -28,11 +30,26 @@ Route::get('/LoginForStaff', function () {
     return view('LoginForStaff');
 });
 
+Route::post('/LoginForStaff', [UserController::class, 'login']);
+
 Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
 
-Route::view('Menu', 'Menu')->name('Menu');
+Route::post('/LoginForAdmin', [UserController::class, 'login']);
+
+Route::get('Menu', function() {
+    if(!session()->has('user')){
+        return redirect('/');
+    }
+    return view('Menu');
+})->name('Menu');
+
+// Route::view('/Menu', 'Menu')->name('Menu')->middleware('auth'); // Middleware to check authentication
+
+Route::view('/MenuForAdmin', 'MenuForAdmin')->name('MenuForAdmin'); 
+
+Route::view('/MenuForStaff', 'MenuForStaff')->name('MenuForStaff');
 
 // logout function part 
 Route::get('logout', function(){
@@ -72,7 +89,9 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
 
 // User List 
+Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
+Route::get('/user_list/view/{id}', [UserController::class, 'show'])->name('user_list.show');
 
 // Licenses 
 Route::resource('licenses', LicenseController::class);

@@ -6,33 +6,52 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Cookies;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     // login part
-    function login(Request $request){
+    public function login(Request $request){
         $request->validate(
             [
-            'username' => 'required | max:5',
-            'password' => 'required | min:11'
+            'username' => 'required | min:4',
+            'password' => 'required | min:8'
             ]
         );
 
-        $data = $request -> input();
-        $request-> session()->put('user', $data['username']);
-        //get cookie to get the username
-        request()->cookie('username');
+        $user = User::where('name', $request->username)->first();
 
-        if($data['is_admin'] == 1 ){
-            return $data->role = 'admin';
-        }else{
-            return $data->role = 'staff';
+        if($user && Hash::check($request->password, $user->password)){
+            $request->session()->put('user', $user->username);
+            $request->session()->put('role', $user->is_admin);
+            $request->session()->put('user_id', $user->id);
+            return redirect()->route('Menu')->with('success', 'Login successful!');
+        }else {
+            return redirect('/')->with('error', 'Invalid credentials!');
         }
+    }
+
+    // index 
+    public function index(Request $request){
+        $query = User::query();
+    
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('id', 'LIKE', "%{$search}%")
+                  ->orWhere('name', 'LIKE', "%{$search}%")
+                  ->orWhere('position', 'LIKE', "%{$search}%")
+                  ->orWhere('department', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+        }
+    
+        $user = $query->get();
+    
+        return view('user_list.index', compact('users'));
     }
 
 
     // add user (admin privilege only)
-    public function AddUser(Request $request){
+    public function create(Request $request){
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',

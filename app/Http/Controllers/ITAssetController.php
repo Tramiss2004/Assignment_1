@@ -92,7 +92,7 @@ class ITAssetController extends Controller
             return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
 
         // Convert 'Yes'/'No' to 1/0 for warranty_available

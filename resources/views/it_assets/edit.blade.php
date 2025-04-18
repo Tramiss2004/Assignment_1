@@ -25,15 +25,7 @@
             <input type="text" class="form-control" id="category" name="category" value="{{ old('category', $itAsset->category) }}" required>
         </div>
 
-<<<<<<< HEAD
-<!-- <<<<<<< HEAD
-            <button type="submit" class="btn btn-primary">Update Asset</button>
-            <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-======= -->
-=======
->>>>>>> JH_20250416_2
+
         <div class="mb-3">
             <label for="brand" class="form-label">Brand</label>
             <input type="text" class="form-control" id="brand" name="brand" value="{{ old('brand', $itAsset->brand) }}" required>
@@ -71,8 +63,4 @@
         <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
-<<<<<<< HEAD
-<!-- >>>>>>> origin/AL -->
-=======
 <x-footer />
->>>>>>> JH_20250416_2
