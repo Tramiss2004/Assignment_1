@@ -43,3 +43,59 @@ a:hover {
     text-decoration: underline;
     color: #0056b3;
 }
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.search-container form {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.search-container input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-container button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff; /* Bootstrap blue */
+    color: white;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
+}
+
+.new-asset-btn {
+    background-color: #17a2b8; /* Bootstrap info color */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.new-asset-btn:hover {
+    background-color: #117a8b;
+}
+
+form input.form-control {
+    max-width: 250px;
+}
+
+button.btn-info {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 500;
+}
