@@ -79,8 +79,7 @@ Route::get('/it_asset/{id}', [ITAssetController::class, 'show']);
 Route::get('/it_assetListPage', [ITAssetController::class, 'showList'])->name('it_asset.list');
 
 // IT Asset Maintenance Page
-Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show']);
-
+Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
 // User List
 

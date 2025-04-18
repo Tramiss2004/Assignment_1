@@ -26,4 +26,9 @@ class ITAssetMaintenance extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function asset()
+    {
+        return $this->belongsTo(ITAsset::class, 'it_asset_id');
+    }
 }

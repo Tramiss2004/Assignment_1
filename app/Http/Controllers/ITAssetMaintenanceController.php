@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ITAssetMaintenance;
+use App\Models\ITAsset;
 
 class ITAssetMaintenanceController extends Controller
 {
@@ -20,4 +21,12 @@ class ITAssetMaintenanceController extends Controller
         'data' => $data,
     ]);
     }
+
+    public function showByAsset($assetId)
+    {
+    $asset = ITAsset::with('maintenanceRecords')->findOrFail($assetId);
+
+    return view('ITAssetMaintenance', compact('asset'));
+    }
+
 }
