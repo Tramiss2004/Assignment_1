@@ -120,15 +120,16 @@
             warrantyAvailable.setAttribute("data-value", "0"); // Store 0 internally
             return;
         }
+        else{
 
-        let today = new Date();
-        let dueDate = new Date(warrantyDueDate);
+            let today = new Date();
+            let dueDate = new Date(warrantyDueDate);
 
-        let isWarrantyValid = dueDate >= today ? 1 : 0;
-        warrantyAvailable.value = isWarrantyValid ? "Yes" : "No"; // Display Yes/No
-        warrantyAvailable.setAttribute("data-value", isWarrantyValid); // Store 1/0
+            let isWarrantyValid = dueDate >= today ? 1 : 0;
+            warrantyAvailable.value = isWarrantyValid ? "Yes" : "No"; // Display Yes/No
+            warrantyAvailable.setAttribute("data-value", isWarrantyValid); // Store 1/0
+        }
     }
-
 
     function toggleAssignedUser() {
         let assignedStatus = document.getElementById("assigned_status").value;

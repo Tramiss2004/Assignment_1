@@ -37,8 +37,12 @@ class ITAsset extends Model
             ->where('it_assets.id', $assetId)
             ->first(); // returns a single result
     }
-    
-    public $timestamps = false;
+    public function assignedUser() 
+    {
+        // linking to the 'id' on the 'users' table.
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    // public $timestamps = false;
 
     protected $fillable = [
         'name',
