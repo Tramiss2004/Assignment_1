@@ -68,8 +68,6 @@
 <div style="text-align: center; margin-top: 20px;">
     <a href="{{ url('/it_asset/' . $asset->id) }}" class="btn-back">Back to IT Asset Details</a>
 
- \
-
 </div>
 
 </body>

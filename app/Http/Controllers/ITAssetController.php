@@ -117,30 +117,27 @@ class ITAssetController extends Controller
             'user_id' => 'nullable|integer',
         ]);
 
-<<<<<<< HEAD
-=======
-            ITAsset::create($validatedData);
-    
-            return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
-    }
-
-    public function show($id, Request $request)
-    {
-
->>>>>>> JH_20250419_1
-        // Convert 'Yes'/'No' to 1/0 for warranty_available
-        $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
-
-        // Ensure assigned user is only set if status is "Assigned"
-        if ($validatedData['assigned_status'] === 'Assigned') {
-            $validatedData['user_id'] = $request->input('assigned_user_id');
-        } else {
-            $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
-        }
-
         ITAsset::create($validatedData);
-
+    
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
+
+    // public function show($id, Request $request)
+    // {
+
+    //     // Convert 'Yes'/'No' to 1/0 for warranty_available
+    //     $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
+
+    //     // Ensure assigned user is only set if status is "Assigned"
+    //     if ($validatedData['assigned_status'] === 'Assigned') {
+    //         $validatedData['user_id'] = $request->input('assigned_user_id');
+    //     } else {
+    //         $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
+    //     }
+
+    //     ITAsset::create($validatedData);
+
+    //     return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+    // }
 
 }
