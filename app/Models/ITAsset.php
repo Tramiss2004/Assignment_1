@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
 
 class ITAsset extends Model
 {
@@ -25,15 +22,7 @@ class ITAsset extends Model
         return $this->hasMany(ITAssetMaintenance::class, 'it_asset_id');
     }
 
-    public static function withGroupedLicenseIds()
-    {
-        return DB::table('it_assets')
-            ->join('it_asset_license_details', 'it_assets.id', '=', 'it_asset_license_details.asset_id')
-            ->select('it_assets.id as asset_id', 'it_assets.name','it_assets.*', 'it_asset_license_details.*',
-                DB::raw('GROUP_CONCAT(it_asset_license_details.license_id) as license_ids'))
-            ->groupBy('it_assets.id', 'it_assets.name')
-            ->get();
-    }
+    //To join users.name into the it_assets table
     public static function withUserForAsset($assetId)
     {
         return DB::table('users')
@@ -49,25 +38,6 @@ class ITAsset extends Model
             ->first(); // returns a single result
     }
     
-    
-
-    public static function withAssetLicenseDetailsAndUsers()
-{
-    return DB::table('it_assets')
-        ->leftJoin('it_asset_license_details', 'it_assets.id', '=', 'it_asset_license_details.asset_id')
-        ->leftJoin('users', 'it_assets.user_id', '=', 'users.id')
-        ->select(
-            'it_assets.id as asset_id',
-            'it_assets.name as asset_name',
-            'it_asset_license_details.id as asset_license_id',
-            'users.id as user_id',
-            'users.name as user_name'
-        )
-        ->get();
-}
-
-
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -86,4 +56,44 @@ class ITAsset extends Model
         'license_id',
         'user_id'
     ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // public static function withGroupedLicenseIds()
+    // {
+    //     return DB::table('it_assets')
+    //         ->join('it_asset_license_details', 'it_assets.id', '=', 'it_asset_license_details.asset_id')
+    //         ->select('it_assets.id as asset_id', 'it_assets.name','it_assets.*', 'it_asset_license_details.*',
+    //             DB::raw('GROUP_CONCAT(it_asset_license_details.license_id) as license_ids'))
+    //         ->groupBy('it_assets.id', 'it_assets.name')
+    //         ->get();
+    // }
+    //
+    // public static function withAssetLicenseDetailsAndUsers()
+    // {
+    //     return DB::table('it_assets')
+    //         ->leftJoin('it_asset_license_details', 'it_assets.id', '=', 'it_asset_license_details.asset_id')
+    //         ->leftJoin('users', 'it_assets.user_id', '=', 'users.id')
+    //         ->select(
+    //             'it_assets.id as asset_id',
+    //             'it_assets.name as asset_name',
+    //             'it_asset_license_details.id as asset_license_id',
+    //             'users.id as user_id',
+    //             'users.name as user_name'
+    //         )
+    //         ->get();
+    // }
 }
