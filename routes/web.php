@@ -75,6 +75,9 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
+Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList']);
+Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show'])->name('it_asset_maintenance.show');
+
 // IT Asset CRUD
 Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
 Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::class, 'update']);
