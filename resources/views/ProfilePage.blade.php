@@ -19,7 +19,16 @@
             <p><strong>Email:</strong> {{ $data->email }}</p>
         </div>
 
+        <div class="button-wrapper">
+            <a href="/Menu">
+                <button>Back</button>
+            </a>
+        </div>
 
+<<<<<<< HEAD
+=======
+        
+>>>>>>> JH_20250419_1
     </div>
 
 </body>
