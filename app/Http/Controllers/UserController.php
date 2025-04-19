@@ -23,6 +23,7 @@ class UserController extends Controller
         if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
             $user = User::where('name', $request->username)->first();
             $request->session()->put('name', $user->name);
+            $request->session()->put('is_admin', $user->is_admin);
             $request->session()->put('user_id', $user->id);
             // Login successful, redirect to menu
             return redirect()->intended('/Menu');

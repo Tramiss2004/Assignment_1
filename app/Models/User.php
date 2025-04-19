@@ -48,16 +48,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Check if the user is an admin
-    public function isAdmin()
-    {
-        return $this->is_admin === 1;
-    }
-
-    // Check if the user is a staff
-    public function isStaff()
-    {
-        return $this->is_admin === 0;
-    }
-
 }
