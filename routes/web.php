@@ -90,12 +90,11 @@ Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceControlle
 Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
 Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::class, 'update']);
 
-<<<<<<< HEAD
 Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController::class, 'destroy']);
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
-=======
+
 // User List 
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
@@ -103,4 +102,8 @@ Route::get('/user_list/view/{id}', [UserController::class, 'show'])->name('user_
 
 // Licenses 
 Route::resource('licenses', LicenseController::class);
->>>>>>> JH_20250419_1
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
