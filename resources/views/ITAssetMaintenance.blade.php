@@ -40,6 +40,22 @@
                 </form>
             </div>
         @endif
+
+        {{--
+        This is a comment and actual code to use when auth is set up
+
+        @if(Auth::check() && Auth::user()->is_admin)
+        <div style="margin-top: 10px; text-align: right;">
+                <a href="{{ url('/it_asset_maintenance/edit/' . $maintenance->id) }}" class="btn-update">Update</a>
+                <form action="{{ url('/it_asset_maintenance/delete/' . $maintenance->id) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this maintenance record?')">Delete</button>
+                </form>
+            </div>
+        @endif
+        --}}
+
     </div>
     <br>
 @endforeach
@@ -52,14 +68,7 @@
 <div style="text-align: center; margin-top: 20px;">
     <a href="{{ url('/it_asset/' . $asset->id) }}" class="btn-back">Back to IT Asset Details</a>
 
-    {{--
-        This is a comment and actual code to use when auth is set up
-
-    @if(Auth::check() && Auth::user()->is_admin)
-        <a href="#" class="btn-update">Update</a>
-        <a href="#" class="btn-delete">Delete</a>
-    @endif
-    --}}
+ \
 
 </div>
 

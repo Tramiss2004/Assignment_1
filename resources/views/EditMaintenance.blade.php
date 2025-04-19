@@ -57,6 +57,7 @@
 
             <div style="text-align: center; margin-top: 30px;">
                 <button type="submit" class="btn-update">Update</button>
+
                 <a href="{{ url()->previous() }}" class="btn-back">Cancel</a>
             </div>
         </form>

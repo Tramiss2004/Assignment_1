@@ -24,7 +24,7 @@ class ITAssetMaintenanceController extends Controller
         $assetId = $itAssetMaintenance->it_asset_id; // Get related asset ID before deleting
         $itAssetMaintenance->delete();
 
-        return redirect()->url('/it_asset_maintenance/' . $assetId)->with('success', 'IT Asset Maintenance deleted successfully!');
+        return redirect()->url('/it_asset_maintenance/delete/' . $assetId)->with('success', 'IT Asset Maintenance deleted successfully!');
     }
 
     public function edit($id)
