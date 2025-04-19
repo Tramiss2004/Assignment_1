@@ -26,11 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-<<<<<<< HEAD
         'role',
-=======
         'is_admin'
->>>>>>> JH_20250419_1
     ];
 
     /**
