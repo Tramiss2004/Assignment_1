@@ -1,5 +1,6 @@
 <!DOCTYPE html> 
 <html>
+
 <head>
     <title>GBN</title>
     <link rel="stylesheet" href="{{ asset('css/Login.css') }}">
