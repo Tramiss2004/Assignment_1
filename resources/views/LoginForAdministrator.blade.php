@@ -39,16 +39,8 @@
                         <br>
                     </div>
 
-<<<<<<< HEAD
                 <button type="submit">Submit</button>
             </form>
-=======
-                    <div>
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
->>>>>>> JH_20250419_1
         </div>
         <x-footer />
     </body>
