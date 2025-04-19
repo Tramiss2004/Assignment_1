@@ -97,6 +97,8 @@ class ITAssetController extends Controller
         $users = User::all(); // Fetch all users from the database
         return view('it_assets.create', compact('users'));
     }
+
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -115,6 +117,17 @@ class ITAssetController extends Controller
             'user_id' => 'nullable|integer',
         ]);
 
+<<<<<<< HEAD
+=======
+            ITAsset::create($validatedData);
+    
+            return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+    }
+
+    public function show($id, Request $request)
+    {
+
+>>>>>>> JH_20250419_1
         // Convert 'Yes'/'No' to 1/0 for warranty_available
         $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
 

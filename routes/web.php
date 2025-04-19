@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\ITAssetController;
 use App\Http\Controllers\ITAssetLicenseDetailController;
 use App\Http\Controllers\ITAssetMaintenanceController;
@@ -28,11 +30,20 @@ Route::get('/LoginForStaff', function () {
     return view('LoginForStaff');
 });
 
+Route::post('/LoginForStaff', [UserController::class, 'login']);
+
 Route::get('/LoginForAdmin', function () {
     return view('LoginForAdministrator');
 });
 
-Route::view('Menu', 'Menu')->name('Menu');
+Route::post('/LoginForAdmin', [UserController::class, 'login']);
+
+Auth::routes();
+
+Route::get('/Menu', function(){
+    return view('Menu');
+})->middleware('auth');
+
 
 // logout function part
 Route::get('logout', function(){
@@ -73,14 +84,26 @@ Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.
 Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 
 // IT Asset Maintenance Page
-Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show']);
+Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
+// IT Asset CRUD
+Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
+Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::class, 'update']);
 
-// User List
-
+Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController::class, 'destroy']);
 
 // Licenses
 Route::resource('licenses', LicenseController::class);
+
+// User List 
+Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
+
+Route::get('/user_list/view/{id}', [UserController::class, 'show'])->name('user_list.show');
+
+// Licenses 
+Route::resource('licenses', LicenseController::class);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

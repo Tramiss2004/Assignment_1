@@ -9,7 +9,7 @@ class ITAssetMaintenance extends Model
 {
     use HasFactory;
 
-    // Define the table name if it doesn't follow Laravel's naming convention
+    // Define the table name
     protected $table = 'it_asset_maintenances';
     public $timestamps = false;
 
@@ -26,4 +26,9 @@ class ITAssetMaintenance extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function asset()
+    {
+        return $this->belongsTo(ITAsset::class, 'it_asset_id');
+    }
 }
