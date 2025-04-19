@@ -91,6 +91,9 @@ Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::c
 
 Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController::class, 'destroy']);
 
+// Licenses
+Route::resource('licenses', LicenseController::class);
+
 // User List 
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
@@ -114,3 +117,8 @@ Route::post('/user_list', [UserController::class, 'store'])->name('user_list.sto
 
 // Licenses 
 Route::resource('licenses', LicenseController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
