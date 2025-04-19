@@ -106,6 +106,8 @@
         </div>
 
         <button type="submit" class="btn btn-success">Create IT Asset</button>
+
+        <button type="button" onclick="history.back()">Back</button>
     </form>
 
 </div>

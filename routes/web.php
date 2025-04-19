@@ -52,8 +52,7 @@ Route::get('logout', function(){
     }
     return redirect('MainPage');
 });
-Route::view('MenuForAdmin', 'MenuForAdmin');
-Route::view('MenuForStaff', 'MenuForStaff');
+
 
 //IT_Asset page
 Route::get('/it_asset', [ITAssetController::class, 'index'])->name('it_assets.index');
@@ -86,6 +85,9 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
+Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList']);
+Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show'])->name('it_asset_maintenance.show');
+
 // IT Asset CRUD
 Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
 Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::class, 'update']);
@@ -98,7 +100,23 @@ Route::resource('licenses', LicenseController::class);
 // User List 
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
-Route::get('/user_list/view/{id}', [UserController::class, 'show'])->name('user_list.show');
+//view User details page
+Route::get('/user_list/{id}', [UserController::class, 'show'])->name('user_list.show');
+Route::resource('user_list', UserController::class);
+
+
+//edit or update the User
+Route::get('/user_list/{id}/edit', [UserController::class, 'edit'])->name('user_list.edit'); // Show edit form
+Route::put('/user_list/{id}', [UserController::class, 'update'])->name('user_list.update');  // Handle form submission
+
+//delete
+Route::delete('/user_list/{id}', [UserController::class, 'destroy'])->name('user_list.destroy');
+
+//create new it asset
+// Show the form to create a new IT asset
+Route::get('/user_list/create', [UserController::class, 'create'])->name('user_list.create');
+
+Route::post('/user_list', [UserController::class, 'store'])->name('user_list.store');
 
 // Licenses 
 Route::resource('licenses', LicenseController::class);

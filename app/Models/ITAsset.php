@@ -37,7 +37,7 @@ class ITAsset extends Model
             ->where('it_assets.id', $assetId)
             ->first(); // returns a single result
     }
-    
+
     public $timestamps = false;
 
     protected $fillable = [

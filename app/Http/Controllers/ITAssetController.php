@@ -131,9 +131,9 @@ class ITAssetController extends Controller
             'user_id' => 'nullable|integer',
         ]);
 
-            ITAsset::create($validatedData);
+        ITAsset::create($validatedData);
     
-            return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+        return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
     // public function show($id, Request $request)
