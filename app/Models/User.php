@@ -26,7 +26,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+<<<<<<< HEAD
         'role',
+=======
+        'is_admin'
+>>>>>>> JH_20250419_1
     ];
 
     /**
@@ -47,4 +51,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Check if the user is an admin
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
+
+    // Check if the user is a staff
+    public function isStaff()
+    {
+        return $this->is_admin === 0;
+    }
+
 }
