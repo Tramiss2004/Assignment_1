@@ -64,7 +64,10 @@
             <input type="text" id="category" name="category" class="form-control" value="{{ old('category', $itAsset->category) }}" required>
         </div>
 
+<<<<<<< HEAD
         {{-- Brand --}}
+=======
+>>>>>>> adfa483b51fc2d5b356236c032b2c222de5cee88
         <div class="mb-3">
             <label for="brand" class="form-label">Brand</label>
             <input type="text" id="brand" name="brand" class="form-control" value="{{ old('brand', $itAsset->brand) }}" required>
@@ -156,6 +159,7 @@
         </div>
     </form>
 </div>
+<<<<<<< HEAD
 
 <script>
     // Same JavaScript as in create.blade.php
@@ -205,3 +209,6 @@
 
 </body>
 </html>
+=======
+<x-footer />
+>>>>>>> adfa483b51fc2d5b356236c032b2c222de5cee88

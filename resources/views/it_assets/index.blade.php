@@ -70,5 +70,6 @@
         </tbody>
     </table>
 
+    <button type="button" class="btn btn-info" onclick="history.back()">Back</button>
 </div>
 <x-footer />

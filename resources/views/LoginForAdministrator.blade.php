@@ -39,8 +39,11 @@
                         <br>
                     </div>
 
-                <button type="submit">Submit</button>
-            </form>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <x-footer />
     </body>

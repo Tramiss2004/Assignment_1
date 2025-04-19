@@ -3,16 +3,17 @@
 <html>
     <head>
         <title>GBN</title>
+        <link rel="stylesheet" href="{{ asset('css/Login.css') }}">
     </head>
     <body>
-        <div>
+        <div class="main-container">
             <h1>Welcome to GBN</h1>
         </div>
-        <div>
+        <div class="main-container">
             <div>
                 <h2>Please choose one of them to login.</h2>
             </div>
-            <div>
+            <div class="button-wrapper">
                 <a href="/LoginForStaff">
                     <button>
                         Staff Login
@@ -20,7 +21,7 @@
                 </a>
             </div> 
             <br> 
-            <div>
+            <div class="button-wrapper">
                 <a href="/LoginForAdmin">
                     <button>
                         Admin Login

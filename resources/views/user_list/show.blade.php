@@ -1,23 +1,23 @@
 <div class="container">
-    <h2>IT Asset Details</h2>
+    <h2>User Details</h2>
     <table class="table">
         <tr>
             <th>ID:</th>
-            <td>{{ $itAsset->id }}</td>
+            <td>{{ $user->id }}</td>
         </tr>
         <tr>
             <th>Name:</th>
-            <td>{{ $itAsset->name }}</td>
+            <td>{{ $user->name }}</td>
         </tr>
         <tr>
-            <th>Assigned Status:</th>
-            <td>{{ $itAsset->assigned_status }}</td>
+            <th>Position:</th>
+            <td>{{ $user->Position }}</td>
         </tr>
         <tr>
-            <th>Purchase Date:</th>
-            <td>{{ $itAsset->purchase_date }}</td>
+            <th>Department:</th>
+            <td>{{ $user->Department }}</td>
         </tr>
     </table>
-    <a href="{{ route('it_assets.index') }}" class="btn btn-primary">Back to List</a>
+    <a href="{{ route('user_list.index') }}" class="btn btn-primary">Back to List</a>
 </div>
 <x-footer />

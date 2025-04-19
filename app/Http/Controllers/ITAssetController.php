@@ -156,6 +156,7 @@ class ITAssetController extends Controller
         ]);
         $dataToCreate = $validatedData; 
 
+<<<<<<< HEAD
         // Convert 'warranty_available' from 'Yes'/'No' to 1/0
         $dataToCreate['warranty_available'] = ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
     
@@ -173,6 +174,10 @@ class ITAssetController extends Controller
         // Create the IT Asset record
         ITAsset::create($dataToCreate);
     
+=======
+        ITAsset::create($validatedData);
+    
+>>>>>>> adfa483b51fc2d5b356236c032b2c222de5cee88
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
