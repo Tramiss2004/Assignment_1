@@ -48,8 +48,8 @@ class ITAsset extends Model
             ->where('it_assets.id', $assetId)
             ->first(); // returns a single result
     }
-    
-    
+
+
 
     public static function withAssetLicenseDetailsAndUsers()
 {

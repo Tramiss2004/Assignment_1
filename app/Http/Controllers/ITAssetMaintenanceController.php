@@ -53,4 +53,18 @@ class ITAssetMaintenanceController extends Controller
             ->with('success', 'Maintenance record updated successfully!');
     }
 
+    public function showList()
+    {
+        $maintenanceListData = ITAssetMaintenance::all(); // Get all maintenance records
+
+        return view('ViewMaintenanceList', compact('maintenanceListData'));
+    }
+
+    public function show($id)
+    {
+    $maintenance = ITAssetMaintenance::findOrFail($id);
+
+    return view('ViewMaintenanceDetail', compact('maintenance'));
+    }
+
 }
