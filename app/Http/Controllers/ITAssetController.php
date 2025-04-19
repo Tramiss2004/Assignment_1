@@ -30,17 +30,24 @@ class ITAssetController extends Controller
         return view('it_assets.index', compact('itAssets'));
     }
 
-    public function show($id){
+    public function show($id)
+    {
+        // Get the specific asset by ID
         $data = ITAsset::find($id);
+    
+        if (!$data) {
+            return abort(404, "Asset not found");
+        }
+    
+        // Get the user associated with this asset via your custom query
+        $userData = ITAsset::withUserForAsset($id);
 
-    if (!$data) {
-        return abort(404, "Asset not found");
+        return view("it_assets.show", [
+            'data' => $data,
+            'userData' => $userData,
+        ]);
     }
-
-    return view("it_assets.show", [
-        'data' => $data,
-    ]);
-    }
+    
 
     // public function showList()
     // {
@@ -109,25 +116,6 @@ class ITAssetController extends Controller
             'license_id' => 'nullable|integer',
             'user_id' => 'nullable|integer',
         ]);
-// <<<<<<< HEAD
-
-//         ITAsset::create($validatedData);
-
-//         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
-//     }
-
-//     public function show($id)
-//     {
-//         $data = ITAsset::find($id); // Fetch user by ID
-
-//         if (!$data) {
-//             abort(404); // Show a 404 error if user is not found
-//     }
-
-//     return view("ITAssetPage", ['data' => $data]);
-//     }
-// }
-// =======
 
         // Convert 'Yes'/'No' to 1/0 for warranty_available
         $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
@@ -145,4 +133,3 @@ class ITAssetController extends Controller
     }
 
 }
-// >>>>>>> origin/AL
