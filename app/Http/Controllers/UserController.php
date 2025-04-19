@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Cookies;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
->>>>>>> JH_20250419_1
 
 class UserController extends Controller
 {
@@ -23,15 +20,6 @@ class UserController extends Controller
             ]
         );
 
-<<<<<<< HEAD
-        $data = $request -> input();
-        $request-> session()->put('user', $data['username']);
-
-        if($data['is_admin'] == 1 ){
-            return redirect('MenuForAdmin');
-        }else{
-            return redirect('MenuForStaff');
-=======
         if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
             $user = User::where('name', $request->username)->first();
             $request->session()->put('name', $user->name);
@@ -41,7 +29,6 @@ class UserController extends Controller
         } else {
             // Login failed, redirect back with error message
             return back()->withInput($request->only('username'))->withErrors(['password' => 'Invalid credentials']);
->>>>>>> JH_20250419_1
         }
     }
 
@@ -58,42 +45,42 @@ class UserController extends Controller
                   ->orWhere('email', 'LIKE', "%{$search}%");
         }
     
-        $user = $query->get();
+        $users = $query->get();
     
         return view('user_list.index', compact('users'));
     }
-
-
-<<<<<<< HEAD
-    // add user 
-=======
-    // add user (admin privilege only)
+    
     public function create(Request $request){
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            
         ]);
->>>>>>> JH_20250419_1
-
-
-    // show user data 
+    
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        return redirect()->back()->with('success', 'User created successfully.');
+    }
+    
     public function showData($id){
         $data = User::find($id);
-
-    if (!$data) {
-        return abort(404, "User not found");
+    
+        if (!$data) {
+            return abort(404, "User not found");
+        }
+    
+        $prevUser = User::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        $nextUser = User::where('id', '>', $id)->orderBy('id', 'asc')->first();
+    
+        return view("ProfilePage", [
+            'data' => $data,
+            'prevUser' => $prevUser,
+            'nextUser' => $nextUser
+        ]);
     }
-
-    // Get the previous and next users
-    $prevUser = User::where('id', '<', $id)->orderBy('id', 'desc')->first();
-    $nextUser = User::where('id', '>', $id)->orderBy('id', 'asc')->first();
-
-    return view("ProfilePage", [
-        'data' => $data,
-        'prevUser' => $prevUser,
-        'nextUser' => $nextUser
-    ]);
-    }
+    
 }

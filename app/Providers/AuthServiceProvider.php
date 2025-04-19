@@ -24,23 +24,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-<<<<<<< HEAD
-                // Define an administrator user role
-                Gate::define('isAdmin', function($user){
-                    return $user->hasRole('admin');
-                });
-        
-                // Define an staff user role
-                Gate::define('isStaff', function($user){
-                    return $user->hasRole('staff');
-                });
-        
-                // Define an user role
-                Gate::define('isUser', function($user){
-                    return $user->hasRole('user');
-                });
-        //
-=======
 
         // Define an administrator user role
         Gate::define('isAdmin', function($user){
@@ -52,6 +35,5 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_admin === 0;
         });
 
->>>>>>> JH_20250419_1
     }
 }

@@ -6,29 +6,43 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ITAsset;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth; // Make sure this is at the top
+
 
 
 class ITAssetController extends Controller
 {
+    
     public function index(Request $request)
     {
         $query = ITAsset::query();
 
+        // Apply search filter if provided
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('serial_no', 'LIKE', "%{$search}%")
-                  ->orWhere('category', 'LIKE', "%{$search}%")
-                  ->orWhere('brand', 'LIKE', "%{$search}%")
-                  ->orWhere('model', 'LIKE', "%{$search}%")
-                  ->orWhere('operating_system', 'LIKE', "%{$search}%")
-                  ->orWhere('assigned_status', 'LIKE', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('serial_no', 'LIKE', "%{$search}%")
+                ->orWhere('category', 'LIKE', "%{$search}%")
+                ->orWhere('brand', 'LIKE', "%{$search}%")
+                ->orWhere('model', 'LIKE', "%{$search}%")
+                ->orWhere('operating_system', 'LIKE', "%{$search}%")
+                ->orWhere('assigned_status', 'LIKE', "%{$search}%");
+            });
         }
 
+        // 🔐 Check user role and filter accordingly
+        if (Auth::check() && Auth::user()->isStaff()) {
+            // Staff can only see their own assigned assets
+            $query->where('user_id', Auth::id());
+        }
+
+        // Admin can see everything (no additional filter)
         $itAssets = $query->get();
 
         return view('it_assets.index', compact('itAssets'));
     }
+
 
     public function show($id)
     {
@@ -117,30 +131,27 @@ class ITAssetController extends Controller
             'user_id' => 'nullable|integer',
         ]);
 
-<<<<<<< HEAD
-=======
             ITAsset::create($validatedData);
     
             return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
-    public function show($id, Request $request)
-    {
+    // public function show($id, Request $request)
+    // {
 
->>>>>>> JH_20250419_1
-        // Convert 'Yes'/'No' to 1/0 for warranty_available
-        $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
+    //     // Convert 'Yes'/'No' to 1/0 for warranty_available
+    //     $validatedData['warranty_available'] = $request->input('warranty_available') === 'Yes' ? 1 : 0;
 
-        // Ensure assigned user is only set if status is "Assigned"
-        if ($validatedData['assigned_status'] === 'Assigned') {
-            $validatedData['user_id'] = $request->input('assigned_user_id');
-        } else {
-            $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
-        }
+    //     // Ensure assigned user is only set if status is "Assigned"
+    //     if ($validatedData['assigned_status'] === 'Assigned') {
+    //         $validatedData['user_id'] = $request->input('assigned_user_id');
+    //     } else {
+    //         $validatedData['user_id'] = null; // Ensure no user is saved if Unassigned
+    //     }
 
-        ITAsset::create($validatedData);
+    //     ITAsset::create($validatedData);
 
-        return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
-    }
+    //     return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+    // }
 
 }

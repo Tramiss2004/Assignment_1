@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_assets/list'>
+                <a href='/it_assets'>
                     <button>IT Asset</button>
                 </a>
             </div>
@@ -51,7 +51,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_assets/list'>
+                <a href='/it_assets'>
                     <button>IT Asset</button>
                 </a>
             </div>
