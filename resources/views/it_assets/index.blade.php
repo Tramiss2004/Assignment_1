@@ -14,11 +14,24 @@
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    <!-- New IT Asset Button -->
-    <form action="{{ route('it_assets.create') }}" method="GET">
-        <button type="submit" class="btn btn-info">New IT Asset</button>
-    </form>
+    @auth
+        @if(Auth::user()->isAdmin())
+            <!-- New IT Asset Button -->
+            <form action="{{ route('it_assets.create') }}" method="GET">
+                <button type="submit" class="btn btn-info">New IT Asset</button>
+            </form>
+        @endif
+    @endauth
+
 </div>
+@auth
+    @if(Auth::user()->isAdmin())
+        <p>Welcome, Admin!</p>
+    @elseif(Auth::user()->isStaff())
+        <p>Welcome, Staff!</p>
+    @endif
+@endauth
+
 
     <table border="1" class="table table-bordered">
         <thead>
@@ -39,16 +52,18 @@
                 <td>{{ $asset->date_purchase }}</td>
                 <td>
                     <a href="{{ route('it_assets.show', $asset->id) }}" class="btn btn-back">View</a>
-                    <!-- if is admin -->
-                    <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-update">Edit</a>
 
-                    <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
-                    <!-- end if is admin -->
-                    </form>
+                    @if(Auth::check() && Auth::user()->isAdmin())
+                        <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-update">Edit</a>
+
+                        <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
+                        </form>
+                    @endif
                 </td>
+
             </tr>
             @endforeach
         </tbody>
