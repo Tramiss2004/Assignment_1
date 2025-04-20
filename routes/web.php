@@ -85,8 +85,12 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
-Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList']);
+Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList'])->name('ViewMaintenanceList');
 Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show'])->name('it_asset_maintenance.show');
+
+// IT Asset Maintenance Creation
+Route::get('/CreateMaintenanceView', [ITAssetMaintenanceController::class, 'create'])->name('it_assetMaintenances.create');
+Route::post('/it_asset_maintenance', [ITAssetMaintenanceController::class, 'store'])->name('it_assetMaintenances.store');
 
 // IT Asset CRUD
 Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
@@ -97,7 +101,7 @@ Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController
 // Licenses
 Route::resource('licenses', LicenseController::class);
 
-// User List 
+// User List
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
 //view User details page
@@ -118,10 +122,14 @@ Route::get('/user_list/create', [UserController::class, 'create'])->name('user_l
 
 Route::post('/user_list', [UserController::class, 'store'])->name('user_list.store');
 
-// Licenses 
+// Licenses
 Route::resource('licenses', LicenseController::class);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

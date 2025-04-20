@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +26,7 @@ class ITAssetController extends Controller
                 ->orWhere('assigned_status', 'LIKE', "%{$search}%");
             });
         }
-        // to check the role of the user, if user is staff, will filter IT Asset where the IT Asset is assign to them 
+        // to check the role of the user, if user is staff, will filter IT Asset where the IT Asset is assign to them
         if (Auth::check() && Auth::user()->isStaff()) {
             // Staff can only see their own assigned assets
             $query->where('user_id', Auth::id());
@@ -36,6 +36,7 @@ class ITAssetController extends Controller
         //go to the index of IT Asset view while passing the data
         return view('it_assets.index', compact('itAssets'));
     }
+
     //see IT Asset details for single asset
     public function show($id)
     {
@@ -65,16 +66,16 @@ class ITAssetController extends Controller
         $validationRules = [
             'name' => 'required|string|max:255',
             'assigned_status' => 'required|in:Assigned,Unassigned',
-            'category' => 'required|string|max:255', 
+            'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
-            'operating_system' => 'required|string|max:255', 
+            'operating_system' => 'required|string|max:255',
             'date_purchase' => 'required|date',
             'serial_no' => ['required','string','max:191',Rule::unique('it_assets')->ignore($itAsset->id)],
             'status' => 'required|in:Running,Failure',
-            'warranty_available' => 'required|in:Yes,No', 
+            'warranty_available' => 'required|in:Yes,No',
             'warranty_due_date' => 'nullable|date',
-            'license_available' => 'required|in:1,0', 
+            'license_available' => 'required|in:1,0',
             'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
         ];
         $validatedData = $request->validate($validationRules);
@@ -125,9 +126,9 @@ class ITAssetController extends Controller
             'license_id' => 'nullable|integer',
             'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
         ]);
-        $dataToCreate = $validatedData; 
+        $dataToCreate = $validatedData;
         // Convert 'warranty_available' from 'Yes'/'No' to 1/0
-        $dataToCreate['warranty_available'] = 
+        $dataToCreate['warranty_available'] =
         ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
         // Set the actual 'user_id' based on 'assigned_status'
         if ($validatedData['assigned_status'] == 'Assigned') {
@@ -139,6 +140,7 @@ class ITAssetController extends Controller
         }
         // The actual DB column is 'user_id', not 'assigned_user_id'
         unset($dataToCreate['assigned_user_id']);
+
         // Create the IT Asset record
         ITAsset::create($dataToCreate);
         return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
