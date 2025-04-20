@@ -1,13 +1,16 @@
 <h1> This is a list of IT assets maintenance details</h1>
 
 <head>
+    <title>GBN: IT Asset Maintenance</title>
     <link rel="stylesheet" href="{{ asset('css/ITAssetMaintenanceList.css') }}">
 </head>
 @php
         $mockIsAdmin = true; // Simulate admin or staff login
 @endphp
 
-
+<form action="{{ route('it_assetMaintenances.create') }}" method="GET">
+    <button type="submit" class="btn btn-back">New IT Asset Maintanance</button>
+</form>
 
 <div class="container">
     <h2 class="table-title">IT Asset Maintenance List</h2>
