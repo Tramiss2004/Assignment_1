@@ -10,6 +10,16 @@ class License extends Model
     use HasFactory;
     protected $table = 'licenses';
 
+    public function licenseDetails()
+{
+    return $this->hasMany(ITAssetLicenseDetail::class, 'license_id');
+}
+
+public function itAssets()
+{
+    return $this->belongsToMany(ITAsset::class, 'it_asset_license_details', 'license_id', 'it_asset_id');
+}
+
     protected $fillable = [
         'name',
         'version',

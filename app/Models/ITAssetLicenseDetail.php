@@ -10,4 +10,14 @@ class ITAssetLicenseDetail extends Model
     use HasFactory;    
     protected $table = 'it_asset_license_details';
     protected $fillable = ['it_asset_id', 'license_id'];
+    
+    public function license()
+    {
+        return $this->belongsTo(License::class, 'license_id');
+    }
+
+    public function itAsset()
+    {
+        return $this->belongsTo(ITAsset::class, 'it_asset_id');
+    }
 }
