@@ -14,23 +14,22 @@
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    @auth
-        @if(Auth::user()->isAdmin())
+        @can('isAdmin')
             <!-- New IT Asset Button -->
             <form action="{{ route('it_assets.create') }}" method="GET">
                 <button type="submit" class="btn btn-info">New IT Asset</button>
             </form>
-        @endif
-    @endauth
+        @endcan
+   
 
 </div>
-@auth
-    @if(Auth::user()->isAdmin())
+
+    @can('isAdmin')
         <p>Welcome, Admin!</p>
-    @elseif(Auth::user()->isStaff())
+    @elsecan('isStaff')
         <p>Welcome, Staff!</p>
-    @endif
-@endauth
+    @endcan
+
 
 
     <table border="1" class="table table-bordered">
@@ -53,7 +52,7 @@
                 <td>
                     <a href="{{ route('it_assets.show', $asset->id) }}" class="btn btn-back">View</a>
 
-                    @if(Auth::check() && Auth::user()->isAdmin())
+                    @can('isAdmin')
                         <a href="{{ route('it_assets.edit', $asset->id) }}" class="btn btn-update">Edit</a>
 
                         <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
@@ -62,7 +61,7 @@
                             <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this asset?');">
                                 Delete</button>
                         </form>
-                    @endif
+                    @endcan
                 </td>
 
             </tr>
