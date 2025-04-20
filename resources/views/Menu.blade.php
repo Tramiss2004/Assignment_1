@@ -32,8 +32,13 @@
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
+<<<<<<< HEAD
             <!-- <div class="button-wrapper">
                 <a href='/license'> to be changed--><!--
+=======
+            <div class="button-wrapper">
+                <a href='/license_list'>
+>>>>>>> 417104e0091a92a856bfd280eaa9f46a912981cd
                     <button>License</button>
                 </a>
             </div> -->
@@ -56,17 +61,17 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/ViewMaintenanceList'><!--show the list-->
+                <a href='/ViewMaintenanceList'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/user_list'><!--to be changed-->
+                <a href='/user_list'>
                     <button>User List</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/license'>
+                <a href='/license_list'>
                     <button>License</button>
                 </a>
             </div>

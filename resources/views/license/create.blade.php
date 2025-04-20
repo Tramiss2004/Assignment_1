@@ -46,7 +46,7 @@
         @section('content')
          <div class="container">
             <h2>Add New License</h2>
-         <form action="{{ route('licenses.store') }}" method="POST">
+         <form action="{{ route('license.store') }}" method="POST">
         @csrf
         <input type="text" name="software_license" placeholder="Software License" class="form-control mb-2">
         <input type="date" name="date_purchase" class="form-control mb-2">
