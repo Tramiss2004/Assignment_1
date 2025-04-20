@@ -70,6 +70,10 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-info" onclick="history.back()">Back</button>
+    <div class="button-wrapper">
+        <a href="/Menu">
+            <button type="button">Back</button>
+        </a>
+    </div>
 </div>
 <x-footer />

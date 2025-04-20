@@ -43,5 +43,10 @@
         </tbody>
     </table>
 
+    <div>
+        <a href="/Menu" class="btn btn-back">
+            Back
+        </a>
+    </div>
 </div>
 <x-footer />
