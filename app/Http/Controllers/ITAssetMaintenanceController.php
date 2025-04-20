@@ -13,7 +13,7 @@ class ITAssetMaintenanceController extends Controller
 
     public function showByAsset($assetId)
     {
-    $asset = ITAsset::with('maintenanceRecords')->findOrFail($assetId);
+    $asset = ITAsset::with('maintenanceRecords')->findOrFail($assetId);  // Get maintenance record based on Asset ID
 
     return view('ITAssetMaintenance', compact('asset'));
     }
@@ -62,9 +62,9 @@ class ITAssetMaintenanceController extends Controller
 
     public function show($id)
     {
-    $maintenance = ITAssetMaintenance::findOrFail($id);
+        $maintenance = ITAssetMaintenance::findOrFail($id); // Get maintenance record based on Maintenance ID
 
-    return view('ViewMaintenanceDetail', compact('maintenance'));
+        return view('ViewMaintenanceDetail', compact('maintenance'));
     }
 
 }
