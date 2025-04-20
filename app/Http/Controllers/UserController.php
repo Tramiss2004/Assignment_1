@@ -8,28 +8,36 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cookies;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
     // login part
     public function login(Request $request){
-        $request->validate(
-            [
-            'username' => 'required | min:4',
-            'password' => 'required | min:8'
-            ]
-        );
-
+        $request->validate([
+            'username' => 'required|min:4',
+            'password' => 'required|min:8',
+        ]);
+    
         if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
             $user = User::where('name', $request->username)->first();
+    
             $request->session()->put('name', $user->name);
             $request->session()->put('is_admin', $user->is_admin);
             $request->session()->put('user_id', $user->id);
-            // Login successful, redirect to menu
+    
+            // remember me cookie
+            if ($request->has('remember_username')) {
+                Cookie::queue('remembered_username', $user->name, 60 * 24 * 7); // 7 days
+            } else {
+                Cookie::queue(Cookie::forget('remembered_username'));
+            }
+    
             return redirect()->intended('/Menu');
         } else {
-            // Login failed, redirect back with error message
-            return back()->withInput($request->only('username'))->withErrors(['password' => 'Invalid credentials']);
+            return back()
+                ->withInput($request->only('username'))
+                ->withErrors(['password' => 'Invalid credentials']);
         }
     }
 
@@ -159,5 +167,11 @@ class UserController extends Controller
                     'nextUser' => $nextUser
                 ]);
     }
-    
+    //logout
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->flush();
+        return redirect('/login');
+    }  
 }

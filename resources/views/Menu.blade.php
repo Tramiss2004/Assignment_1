@@ -36,7 +36,7 @@
                 <a href='/license_list'>
                     <button>License</button>
                 </a>
-            </div>
+            </div> 
         </div>
 
         @elsecan('isAdmin')
@@ -77,6 +77,7 @@
                 <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
         @endcan
+        <br>
 
         <div class="main-container">
             <div class="button-wrapper">
