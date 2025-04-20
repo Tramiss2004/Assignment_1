@@ -30,11 +30,13 @@ public function itAssets()
         'date_purchase',
         'serial_no',
         'vendor',
-        'license_type',
-        'Permanent',
-        'Renewable',
         'product_key',
-        'vendor',
-        'status', ['Valid', 'Expired'],
+        'status',
     ];
+    
+
+    public function itAssets()
+{
+    return $this->hasMany(ITAssetLicenseDetail::class, 'license_id');
+}
 }

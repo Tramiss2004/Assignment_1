@@ -16,14 +16,11 @@
         </div>
     </form>
 
-    @auth
-        @if(Auth::user()->isAdmin())
-            <!-- New IT Asset Button -->
-            <form action="{{ route('it_assets.create') }}" method="GET">
-                <button type="submit" class="btn btn-info">New IT Asset</button>
-            </form>
-        @endif
-    @endauth
+
+    <!-- New License Button -->
+    <form action="{{ route('license.create') }}" method="GET">
+        <button type="submit" class="btn btn-info">New License</button>
+    </form>
 
     <table class="table table-bordered">
         <thead>
@@ -52,14 +49,12 @@
                 <td>{{ $license->quantity }}</td>
                 <td>
                     <a href="{{ route('license.show', $license->id) }}" class="btn btn-info">View</a>
-                    @if(Auth::check() && Auth::user()->isAdmin())
-                        <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('license.edit', $license->id) }}" class="btn btn-warning">Edit</a>
                     
-                        <form action="{{ route('license.destroy', $license->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('license.destroy', $license->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
-                        @endif
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this license?');">Delete</button>
                     </form>
                 </td>
             </tr>
