@@ -32,6 +32,11 @@
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
+            <div class="button-wrapper">
+                <a href='/license_list'>
+                    <button>License</button>
+                </a>
+            </div>
         </div>
 
         @elsecan('isAdmin')
@@ -51,17 +56,17 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/ViewMaintenanceList'><!--show the list-->
+                <a href='/ViewMaintenanceList'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/user_list'><!--to be changed-->
+                <a href='/user_list'>
                     <button>User List</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/license'>
+                <a href='/license_list'>
                     <button>License</button>
                 </a>
             </div>

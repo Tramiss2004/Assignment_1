@@ -121,7 +121,7 @@ Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
 
 
 // Licenses 
-Route::get('/license', [LicenseController::class, 'index'])->name('license.index');
+Route::get('/license_list', [LicenseController::class, 'index'])->name('license.index');
 
 //view User details page
 Route::get('/license/{id}', [LicenseController::class, 'show'])->name('license.show');
