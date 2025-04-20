@@ -77,11 +77,6 @@ Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.
 
 
 
-
-// Profile Page
-
-Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
-
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
@@ -94,15 +89,14 @@ Route::put('/it_asset_maintenance/update/{id}', [ITAssetMaintenanceController::c
 
 Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController::class, 'destroy']);
 
-// Licenses
-Route::resource('licenses', LicenseController::class);
+Route::get('/it_asset_maintenance/create', [ITAssetMaintenanceController::class, 'create'])->name('it_asset_maintenance.create');
+Route::post('/it_asset_maintenance/store', [ITAssetMaintenanceController::class, 'store'])->name('it_asset_maintenance.store');
 
 // User List 
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
 //view User details page
 Route::get('/user_list/{id}', [UserController::class, 'show'])->name('user_list.show');
-
 
 //edit or update the User
 Route::get('/user_list/{id}/edit', [UserController::class, 'edit'])->name('user_list.edit'); // Show edit form
@@ -117,8 +111,31 @@ Route::get('/user_lists/create', [UserController::class, 'create'])->name('user_
 
 Route::post('/user_lists', [UserController::class, 'store'])->name('user_list.store');
 
+// Profile Page
+Route::get('/ProfilePage/{id}', [UserController::class, 'showData']);
+
+
+
 // Licenses 
-Route::resource('licenses', LicenseController::class);
+Route::get('/license', [LicenseController::class, 'index'])->name('license.index');
+
+//view User details page
+Route::get('/license/{id}', [LicenseController::class, 'show'])->name('license.show');
+
+//edit or update the User
+Route::get('/license/{id}/edit', [LicenseController::class, 'edit'])->name('license.edit'); // Show edit form
+Route::put('/license/{id}', [LicenseController::class, 'update'])->name('license.update');  // Handle form submission
+
+//delete
+Route::delete('/license/{id}', [LicenseController::class, 'destroy'])->name('license.destroy');
+
+//create new user
+// Show the form to create a new User
+Route::get('/licenses/create', [LicenseController::class, 'create'])->name('license.create');
+
+Route::post('/licenses', [LicenseController::class, 'store'])->name('license.store');
+
+
 
 Auth::routes();
 

@@ -4,7 +4,10 @@
     <!-- Link CSS -->
     <link rel="stylesheet" href="{{ asset('css/ITAsset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ITAssetList.css') }}">
-    </head>
+</head>
+
+
+
 <div class="container">
 
     <table border="1" class="table table-bordered">

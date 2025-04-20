@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''> <!--to be changed-->
+                <a href='/license'> <!--to be changed-->
                     <button>License</button>
                 </a>
             </div>
@@ -66,7 +66,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''>
+                <a href='/license'>
                     <button>License</button>
                 </a>
             </div>
