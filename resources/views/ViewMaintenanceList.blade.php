@@ -1,16 +1,18 @@
 <h1> This is a list of IT assets maintenance details</h1>
 
 <head>
-    <!-- Link CSS -->
-    <link rel="stylesheet" href="{{ asset('css/ITAsset.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/ITAssetList.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ITAssetMaintenanceList.css') }}">
 </head>
+@php
+        $mockIsAdmin = true; // Simulate admin or staff login
+@endphp
 
 
 
 <div class="container">
+    <h2 class="table-title">IT Asset Maintenance List</h2>
 
-    <table border="1" class="table table-bordered">
+    <table class="table table-bordered custom-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -18,38 +20,43 @@
                 <th>Description</th>
                 <th>IT Asset ID</th>
                 <th>Status</th>
-                <th>Maintenance Cost</th>
-                <th>Maintenance Type</th>
+                <th>Cost</th>
+                <th>Type</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($maintenanceListData as $datas)
+            @foreach($maintenanceListData as $data)
             <tr>
-                <td>{{ $datas->id }}</td>
-                <td>{{ $datas->title }}</td>
-                <td>{{ $datas->description }}</td>
-                <td>{{ $datas->it_asset_id }}</td>
-                <td>{{ $datas->status }}</td>
-                <td>{{ $datas->maintenance_cost ?? 'N/A' }}</td>
-                <td>{{ $datas->maintenance_type }}</td>
+                <td>{{ $data->id }}</td>
+                <td>{{ $data->title }}</td>
+                <td>{{ $data->description }}</td>
+                <td>{{ $data->it_asset_id }}</td>
+                <td>{{ $data->status }}</td>
+                <td>{{ $data->maintenance_cost ?? 'N/A' }}</td>
+                <td>{{ $data->maintenance_type }}</td>
                 <td>
-                <a href="{{ route('it_asset_maintenance.show', $datas->id) }}" class="btn btn-back">View</a>
+                    <div class="action-buttons">
+                        <a href="{{ route('it_asset_maintenance.show', $data->id) }}" class="btn-back">View</a>
 
+                        @if($mockIsAdmin)
+                            <a href="{{ url('/it_asset_maintenance/edit/' . $data->id) }}" class="btn-update">Update</a>
 
-
-
-                    </form>
+                            <form action="{{ url('/it_asset_maintenance/delete/' . $data->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this maintenance record?')" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        @endif
+                    </div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    <div>
-        <a href="/Menu" class="btn btn-back">
-            Back
-        </a>
+    <div class="text-center mt-4">
+        <a href="/Menu" class="btn btn-back">Back</a>
     </div>
 </div>
 <x-footer />

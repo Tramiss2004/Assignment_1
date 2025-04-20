@@ -45,7 +45,7 @@
         This is a comment and actual code to use when auth is set up
 
         @if(Auth::check() && Auth::user()->is_admin)
-        <div style="margin-top: 10px; text-align: right;">
+            <div style="margin-top: 10px; text-align: right;">
                 <a href="{{ url('/it_asset_maintenance/edit/' . $maintenance->id) }}" class="btn-update">Update</a>
                 <form action="{{ url('/it_asset_maintenance/delete/' . $maintenance->id) }}" method="POST" style="display: inline;">
                     @csrf
