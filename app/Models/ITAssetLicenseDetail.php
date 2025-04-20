@@ -22,4 +22,7 @@ class ITAssetLicenseDetail extends Model
         'it_asset_id',
         'license_id',
     ];
+ 
+    protected $table = 'it_asset_license_details';
+
 }
