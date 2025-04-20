@@ -21,7 +21,7 @@ class LicenseController extends Controller
                 ->orWhere('status', 'LIKE', "%{$search}%")
                 ->orWhere('serial_no', 'LIKE', "%{$search}%")
                 ->orWhere('vendor', 'LIKE', "%{$search}%")
-                ->orWhere('date_purchase', 'LIKE', "%{$search}%");
+                ->orWhere('date_purchase', 'LIKE', "%{$search}%")->orWhere('license_type', 'LIKE', "%{$search}%")->orWhere('permanent', 'LIKE', "%{$search}%");
             });
         }
         // to check the role of the user, if user is staff, will filter IT Asset where the IT Asset is assign to them 
