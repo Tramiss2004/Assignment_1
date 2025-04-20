@@ -104,6 +104,16 @@
                 <option value="0" {{ old('license_available') == '0' ? 'selected' : '' }}>No</option>
             </select>
         </div>
+        <div class="mb-3" id="license_selection_div" style="display: none;">
+            <label class="form-label">Select License</label>
+            <select name="license_selection" class="form-control">
+                <option value="">-- No license assigned yet --</option>
+                @foreach ($licenses as $license)
+                    <option value="{{ $license->id }}">{{ $license->name }} (v{{ $license->version }})</option>
+                @endforeach
+            </select>
+        </div>
+
 
         <button type="submit" class="btn btn-success">Create IT Asset</button>
 
@@ -145,6 +155,21 @@
         calculateWarranty();
         toggleAssignedUser();
     });
+    function toggleLicenseDropdown() {
+        const licenseAvailable = document.querySelector('[name="license_available"]').value;
+        const licenseDiv = document.getElementById("license_selection_div");
+
+        licenseDiv.style.display = licenseAvailable == "1" ? "block" : "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        toggleAssignedUser();
+        calculateWarranty();
+        toggleLicenseDropdown();
+
+        document.querySelector('[name="license_available"]').addEventListener('change', toggleLicenseDropdown);
+    });
+
 </script>
 
 <x-footer />
