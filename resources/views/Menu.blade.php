@@ -32,16 +32,11 @@
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
-<<<<<<< HEAD
-            <!-- <div class="button-wrapper">
-                <a href='/license'> to be changed--><!--
-=======
             <div class="button-wrapper">
                 <a href='/license_list'>
->>>>>>> 417104e0091a92a856bfd280eaa9f46a912981cd
                     <button>License</button>
                 </a>
-            </div> -->
+            </div> 
         </div>
 
         @elsecan('isAdmin')
