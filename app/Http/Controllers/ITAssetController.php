@@ -82,34 +82,44 @@ class ITAssetController extends Controller
             'model' => 'required|string|max:255',
             'operating_system' => 'required|string|max:255',
             'date_purchase' => 'required|date',
-            'serial_no' => ['required','string','max:191',Rule::unique('it_assets')->ignore($itAsset->id)],
+            'serial_no' => ['required','string','max:191',
+                Rule::unique('it_assets')->ignore($itAsset->id)],
             'status' => 'required|in:Running,Failure',
             'warranty_available' => 'required|in:Yes,No',
             'warranty_due_date' => 'nullable|date',
             'license_available' => 'required|in:1,0',
-            'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
+            'assigned_user_id' => 
+                'required_if:assigned_status,
+                Assigned|nullable|exists:users,id',
             'license_action' => 'nullable|in:none,assign,unassign',
             ];
         $validatedData = $request->validate($validationRules);
         $dataToUpdate = $validatedData;
-        $dataToUpdate['warranty_available'] = ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
-        $dataToUpdate['user_id'] = $validatedData['assigned_status'] === 'Assigned' ? $validatedData['assigned_user_id'] : null;
+        $dataToUpdate['warranty_available'] = 
+            ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
+        $dataToUpdate['user_id'] = 
+            $validatedData['assigned_status'] === 'Assigned' 
+            ? $validatedData['assigned_user_id'] : null;
         unset($dataToUpdate['assigned_user_id']);
         $itAsset->update($dataToUpdate);
         // Handle license actions
-        if ($validatedData['license_action'] === 'unassign' && $request->filled('license_id')) {
+        if ($validatedData['license_action'] === 'unassign' 
+            && $request->filled('license_id')) {
             ITAssetLicenseDetail::where('it_asset_id', $itAsset->id)
                 ->where('license_id', $request->input('license_id'))
                 ->delete();
         }
-        if ($validatedData['license_action'] === 'assign' && $request->filled('license_id')) {
+        if ($validatedData['license_action'] === 'assign' 
+            && $request->filled('license_id')) {
             // Prevent duplicate entry for assign license
             ITAssetLicenseDetail::updateOrCreate(
-                ['it_asset_id' => $itAsset->id, 'license_id' => $request->input('license_id')],
+                ['it_asset_id' => $itAsset->id, 'license_id' => 
+                    $request->input('license_id')],
                 []
             );
         }
-        return redirect()->route('it_assets.index')->with('success', 'IT Asset updated successfully!');
+        return redirect()->route('it_assets.index')
+            ->with('success', 'IT Asset updated successfully!');
     }
     public function destroy($id)
     {
@@ -142,7 +152,8 @@ class ITAssetController extends Controller
             'warranty_due_date' => 'nullable|date',
             'license_available' => 'required|in:1,0',
             'license_id' => 'nullable|integer',
-            'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
+            'assigned_user_id' => 
+                'required_if:assigned_status,Assigned|nullable|exists:users,id',
         ]);
         $dataToCreate = $validatedData;
         // Convert 'warranty_available' from 'Yes'/'No' to 1/0

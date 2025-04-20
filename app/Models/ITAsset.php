@@ -15,6 +15,11 @@ class ITAsset extends Model
         return $this->hasMany(ITAssetLicenseDetail::class, 'it_asset_id');
     }
 
+    public function licenseDetails()
+    {
+        return $this->hasMany(ITAssetLicenseDetail::class, 'it_asset_id');
+    }
+
     public function maintenanceRecords()
     {
         return $this->hasMany(ITAssetMaintenance::class, 'it_asset_id');
@@ -22,7 +27,6 @@ class ITAsset extends Model
     
     public function assignedUser() 
     {
-        // linking to the 'id' on the 'users' table.
         return $this->belongsTo(User::class, 'user_id');
     }
 
