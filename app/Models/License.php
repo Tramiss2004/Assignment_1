@@ -34,9 +34,4 @@ public function itAssets()
         'status',
     ];
     
-
-    public function itAssets()
-{
-    return $this->hasMany(ITAssetLicenseDetail::class, 'license_id');
-}
 }
