@@ -26,7 +26,7 @@ class UserController extends Controller
             $request->session()->put('is_admin', $user->is_admin);
             $request->session()->put('user_id', $user->id);
     
-            // ✅ Handle "Remember Username"
+            // remember me cookie
             if ($request->has('remember_username')) {
                 Cookie::queue('remembered_username', $user->name, 60 * 24 * 7); // 7 days
             } else {
@@ -172,10 +172,6 @@ class UserController extends Controller
     {
         Auth::logout();
         $request->session()->flush();
-
-        // Optional: keep or remove the username cookie
-        // Cookie::queue(Cookie::forget('remembered_username'));
-
         return redirect('/login');
     }  
 }
