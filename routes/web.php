@@ -80,8 +80,12 @@ Route::post('/it_assets', [ITAssetController::class, 'store'])->name('it_assets.
 // IT Asset Maintenance Page
 Route::get('/it_asset_maintenance/asset/{assetId}', [ITAssetMaintenanceController::class, 'showByAsset']);
 
-Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList']);
+Route::get('/ViewMaintenanceList', [ITAssetMaintenanceController::class, 'showList'])->name('ViewMaintenanceList');
 Route::get('/it_asset_maintenance/{id}', [ITAssetMaintenanceController::class, 'show'])->name('it_asset_maintenance.show');
+
+// IT Asset Maintenance Creation
+Route::get('/CreateMaintenanceView', [ITAssetMaintenanceController::class, 'create'])->name('it_assetMaintenances.create');
+Route::post('/it_asset_maintenance', [ITAssetMaintenanceController::class, 'store'])->name('it_assetMaintenances.store');
 
 // IT Asset CRUD
 Route::get('/it_asset_maintenance/edit/{id}', [ITAssetMaintenanceController::class, 'edit']);
@@ -92,7 +96,7 @@ Route::delete('/it_asset_maintenance/delete/{id}', [ITAssetMaintenanceController
 Route::get('/it_asset_maintenance/create', [ITAssetMaintenanceController::class, 'create'])->name('it_asset_maintenance.create');
 Route::post('/it_asset_maintenance/store', [ITAssetMaintenanceController::class, 'store'])->name('it_asset_maintenance.store');
 
-// User List 
+// User List
 Route::get('/user_list', [UserController::class, 'index'])->name('user_list.index');
 
 //view User details page
@@ -141,3 +145,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

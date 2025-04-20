@@ -67,4 +67,47 @@ class ITAssetMaintenanceController extends Controller
         return view('ViewMaintenanceDetail', compact('maintenance'));
     }
 
+    public function create()
+    {
+        $itAssets = ITAsset::all(); // This should be ITAsset, not ITAssetMaintenance
+        return view('CreateMaintenanceView', compact('itAssets'));
+    }
+
+    public function store(Request $request)
+    {
+
+        // Extract the numeric it_asset_id if needed
+        $itAssetId = $request->input('it_asset_id');
+        preg_match('/\d+/', $itAssetId, $matches);  // Extracts digits from the string
+
+        if (isset($matches[0])) {
+            $itAssetId = (int) $matches[0];  // Convert to integer
+        }
+
+        // Merge the correct it_asset_id into the request
+        $request->merge([
+            'it_asset_id' => $itAssetId,
+        ]);
+
+        // Validate the data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'it_asset_id' => 'required|exists:it_assets,id',
+            'status' => 'required|in:Pending,In Progress,Completed',
+            'maintenance_cost' => 'required|numeric|min:0',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'maintenance_type' => 'required|string|max:255',
+        ]);
+
+        // Create the IT Asset Maintenance record
+        ITAssetMaintenance::create($validatedData);
+
+        // Redirect with success message
+        return redirect()->route('ViewMaintenanceList')->with('success', 'IT Asset Maintenance created successfully!');
+    }
+
+
+
 }
