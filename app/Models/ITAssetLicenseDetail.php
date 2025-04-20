@@ -17,7 +17,7 @@ class ITAssetLicenseDetail extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'user_id'); // assuming 'user_id' is the foreign key
+        return $this->hasOne(User::class, 'id'); // assuming 'user_id' is the foreign key
     }
 
     public function itAsset()
