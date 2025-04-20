@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>IT Asset Details</h2>
+    <h2>License Details</h2>
     <table class="table">
         <tr>
             <th>ID:</th>

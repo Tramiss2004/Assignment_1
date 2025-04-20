@@ -32,11 +32,6 @@
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
-            <div class="button-wrapper">
-                <a href='/license'> <!--to be changed-->
-                    <button>License</button>
-                </a>
-            </div>
         </div>
 
         @elsecan('isAdmin')

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\License;
+
 use Illuminate\Http\Request;
 
 class LicenseController extends Controller
@@ -21,18 +23,14 @@ class LicenseController extends Controller
                 ->orWhere('status', 'LIKE', "%{$search}%")
                 ->orWhere('serial_no', 'LIKE', "%{$search}%")
                 ->orWhere('vendor', 'LIKE', "%{$search}%")
-                ->orWhere('date_purchase', 'LIKE', "%{$search}%")->orWhere('license_type', 'LIKE', "%{$search}%")->orWhere('permanent', 'LIKE', "%{$search}%");
+                ->orWhere('date_purchase', 'LIKE', "%{$search}%")->orWhere('license_type', 'LIKE', "%{$search}%")->orWhere('product_key', 'LIKE', "%{$search}%")
+                ->orWhere('quantity', 'LIKE', "%{$search}%");
             });
         }
-        // to check the role of the user, if user is staff, will filter IT Asset where the IT Asset is assign to them 
-        if (Auth::check() && Auth::user()->isStaff()) {
-            // Staff can only see their own assigned assets
-            $query->where('user_id', Auth::id());
-        }
         // Admin can see everything (no additional filter)
-        $itAssets = $query->get();
-        //go to the index of IT Asset view while passing the data
-        return view('it_assets.index', compact('itAssets'));
+        $licenses = $query->get();
+        //go to the index of License view while passing the data
+        return view('license.index', compact('licenses'));
     }
 
     public function create()
@@ -42,7 +40,19 @@ class LicenseController extends Controller
 
     public function store(Request $request)
     {
-        License::create($request->all());
+        $license_data = $request->validate([
+            'name' => 'required|string|max:255',
+            'version' => 'required|string|max:255',
+            'expiry_date' => 'nullable|date',
+            'status' => 'required|string|in:Valid,Expired',
+            'serial_no' => 'required|string|max:255|unique:licenses,serial_no',
+            'vendor' => 'required|string|max:255',
+            'date_purchase' => 'required|date',
+            'license_type' => 'required|string|in:Permanent,Renewable',
+            'product_key' => 'required|string|max:255|unique:licenses,product_key',
+            'quantity' => 'required|integer|min:1',
+        ]);
+        License::create($license_data);
         return redirect()->route('license.index')->with('success', 'License added successfully!');
     }
 
