@@ -11,7 +11,7 @@
             <h1>Hi. {{ session('name') }}</h1>
         </div>
 
-        @if(Auth::user()->isStaff())
+        @can('isStaff')
         <div class="main-container">
             <h1>Menu For Staff</h1>
         </div>
@@ -28,18 +28,18 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_asset_maintenance'>
+                <a href='/ViewMaintenanceList'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''> <!--to be changed-->
+                <a href='/license'> <!--to be changed-->
                     <button>License</button>
                 </a>
             </div>
         </div>
 
-        @elseif(Auth::user()->isAdmin())
+        @elsecan('isAdmin')
         <div class="main-container">
             <h1>Menu For Administrator</h1>
         </div>
@@ -56,7 +56,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''><!--show the list-->
+                <a href='/ViewMaintenanceList'><!--show the list-->
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
@@ -66,7 +66,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''>
+                <a href='/license'>
                     <button>License</button>
                 </a>
             </div>
@@ -76,7 +76,7 @@
             <div class="main-container">
                 <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
-        @endif
+        @endcan
 
         <div class="main-container">
             <div class="button-wrapper">

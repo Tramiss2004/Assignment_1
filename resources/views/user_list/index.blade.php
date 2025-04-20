@@ -1,6 +1,7 @@
 <head>
     <title>GBN: User List</title>
-    <link rel="stylesheet" href="{{ asset('css/ITAssetCreate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ITAsset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ITAssetList.css') }}">
 </head>
 
 
@@ -17,9 +18,7 @@
         </form>
 
         <div>
-            <a href="{{ route('user_list.create') }}" class="btn btn-primary mb-3">
-                <button>New User</button>
-            </a>
+            <a href="{{ route('user_list.create') }}" class="btn btn-info">New User</a>
         </div>
 
         <table class="table table-bordered">
@@ -41,13 +40,18 @@
                     <td>{{ $user->department }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ route('user_list.show', $user->id) }}" class="btn btn-info">View</a>
-                        <a href="{{ route('user_list.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ route('user_list.show', $user->id) }}" class="btn btn-back">
+                            View
+                        </a>
+
+                        <a href="{{ route('user_list.edit', $user->id) }}" class="btn btn-update">
+                            Edit
+                        </a>
                     
                         <form action="{{ route('user_list.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
                         <!-- end if is admin -->
                         </form>
                     </td>
@@ -56,7 +60,11 @@
             </tbody>
         </table>
         
-        <button type="button" onclick="history.back()">Back</button>
+        <div class="button-wrapper">
+            <a href="/Menu">
+                <button type="button">Back</button>
+            </a>
+        </div>
     </div>
     <x-footer />
 </body>
