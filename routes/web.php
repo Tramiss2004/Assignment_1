@@ -106,7 +106,6 @@ Route::get('/user_list', [UserController::class, 'index'])->name('user_list.inde
 
 //view User details page
 Route::get('/user_list/{id}', [UserController::class, 'show'])->name('user_list.show');
-Route::resource('user_list', UserController::class);
 
 
 //edit or update the User
@@ -116,11 +115,11 @@ Route::put('/user_list/{id}', [UserController::class, 'update'])->name('user_lis
 //delete
 Route::delete('/user_list/{id}', [UserController::class, 'destroy'])->name('user_list.destroy');
 
-//create new it asset
-// Show the form to create a new IT asset
-Route::get('/user_list/create', [UserController::class, 'create'])->name('user_list.create');
+//create new user
+// Show the form to create a new User
+Route::get('/user_lists/create', [UserController::class, 'create'])->name('user_list.create');
 
-Route::post('/user_list', [UserController::class, 'store'])->name('user_list.store');
+Route::post('/user_lists', [UserController::class, 'store'])->name('user_list.store');
 
 // Licenses
 Route::resource('licenses', LicenseController::class);

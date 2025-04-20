@@ -24,9 +24,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'is_admin', 
+        'position', 
+        'department',
         'email',
         'password',
-        'is_admin'
     ];
 
     /**
@@ -48,4 +50,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isStaff()
+    {
+        return $this->is_admin == 0;
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin == 1;
+    }
 }

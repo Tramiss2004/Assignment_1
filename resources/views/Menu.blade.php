@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_asset_maintenance'>
+                <a href='/ViewMaintenanceList'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
@@ -56,7 +56,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''><!--show the list-->
+                <a href='/ViewMaintenanceList'><!--show the list-->
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
