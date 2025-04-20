@@ -32,11 +32,11 @@
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
-            <div class="button-wrapper">
-                <a href='/license'> <!--to be changed-->
+            <!-- <div class="button-wrapper">
+                <a href='/license'> to be changed--><!--
                     <button>License</button>
                 </a>
-            </div>
+            </div> -->
         </div>
 
         @elsecan('isAdmin')
@@ -77,6 +77,7 @@
                 <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
         @endcan
+        <br>
 
         <div class="main-container">
             <div class="button-wrapper">

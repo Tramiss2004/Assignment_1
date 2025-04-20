@@ -20,23 +20,23 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('MainPage');
-});
+// Route::get('/', function () {
+//     return view('MainPage');
+// });
 
 // login page section
 
-Route::get('/LoginForStaff', function () {
+Route::get('/', function () {
     return view('LoginForStaff');
 });
 
-Route::post('/LoginForStaff', [UserController::class, 'login']);
+Route::post('/', [UserController::class, 'login']);
 
-Route::get('/LoginForAdmin', function () {
-    return view('LoginForAdministrator');
-});
+// Route::get('/LoginForAdmin', function () {
+//     return view('LoginForAdministrator');
+// });
 
-Route::post('/LoginForAdmin', [UserController::class, 'login']);
+// Route::post('/LoginForAdmin', [UserController::class, 'login']);
 
 Auth::routes();
 
