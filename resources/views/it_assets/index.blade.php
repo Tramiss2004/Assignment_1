@@ -59,7 +59,8 @@
                         <form action="{{ route('it_assets.destroy', $asset->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this asset?');">Delete</button>
+                            <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this asset?');">
+                                Delete</button>
                         </form>
                     @endif
                 </td>
@@ -69,5 +70,6 @@
         </tbody>
     </table>
 
+    <button type="button" class="btn btn-info" onclick="history.back()">Back</button>
 </div>
 <x-footer />

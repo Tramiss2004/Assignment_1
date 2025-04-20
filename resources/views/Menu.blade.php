@@ -11,7 +11,7 @@
             <h1>Hi. {{ session('name') }}</h1>
         </div>
 
-        @if(Auth::user()->isStaff())
+        @can('isStaff')
         <div class="main-container">
             <h1>Menu For Staff</h1>
         </div>
@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_assets'>
+                <a href='/it_asset'>
                     <button>IT Asset</button>
                 </a>
             </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        @elseif(Auth::user()->isAdmin())
+        @elsecan('isAdmin')
         <div class="main-container">
             <h1>Menu For Administrator</h1>
         </div>
@@ -51,7 +51,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/it_assets'>
+                <a href='/it_asset'>
                     <button>IT Asset</button>
                 </a>
             </div>
@@ -61,7 +61,7 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href=''><!--to be changed-->
+                <a href='/user_list'><!--to be changed-->
                     <button>User List</button>
                 </a>
             </div>
@@ -76,7 +76,7 @@
             <div class="main-container">
                 <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
-        @endif
+        @endcan
 
         <div class="main-container">
             <div class="button-wrapper">

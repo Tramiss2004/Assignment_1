@@ -1,23 +1,19 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ITAsset;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; // Make sure this is at the top
-
-
+use Carbon\Carbon;
 
 class ITAssetController extends Controller
 {
-    
     public function index(Request $request)
     {
         $query = ITAsset::query();
-
-        // Apply search filter if provided
+        // if got search, apply filter
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
@@ -30,70 +26,71 @@ class ITAssetController extends Controller
                 ->orWhere('assigned_status', 'LIKE', "%{$search}%");
             });
         }
-
-        // 🔐 Check user role and filter accordingly
+        // to check the role of the user, if user is staff, will filter IT Asset where the IT Asset is assign to them 
         if (Auth::check() && Auth::user()->isStaff()) {
             // Staff can only see their own assigned assets
             $query->where('user_id', Auth::id());
         }
-
         // Admin can see everything (no additional filter)
         $itAssets = $query->get();
-
+        //go to the index of IT Asset view while passing the data
         return view('it_assets.index', compact('itAssets'));
     }
-
-
+    //see IT Asset details for single asset
     public function show($id)
     {
-        // Get the specific asset by ID
-        $data = ITAsset::find($id);
-    
-        if (!$data) {
+        $asset = ITAsset::with('assignedUser')->findOrFail($id);
+        if (!$asset) {
             return abort(404, "Asset not found");
         }
-    
-        // Get the user associated with this asset via your custom query
-        $userData = ITAsset::withUserForAsset($id);
-
-        return view("it_assets.show", [
-            'data' => $data,
-            'userData' => $userData,
-        ]);
+        else{
+            return view("it_assets.show", [
+                'asset'=>$asset
+            ]);
+        }
     }
-    
-
-    // public function showList()
-    // {
-    // // Get all ITAsset records from the database
-    // $data = ITAsset::all();
-
-    // return view('it_assets.index', [
-    //     'data' => $data
-    // ]);
-    // }
 
     public function edit($id)
     {
         $itAsset = ITAsset::findOrFail($id); // Get the IT asset by ID
-        return view('it_assets.edit', compact('itAsset')); // Show the edit form
+        $users = User::orderBy('name')->get(); // Fetch all users for the dropdown (if assigned) and ordered by user name
+        return view('it_assets.edit', compact('itAsset', 'users'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        // check for exiting IT Asset using the ID
+        $itAsset = ITAsset::findOrFail($id);
+        // Validation
+        $validationRules = [
             'name' => 'required|string|max:255',
             'assigned_status' => 'required|in:Assigned,Unassigned',
+            'category' => 'required|string|max:255', 
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'operating_system' => 'required|string|max:255', 
             'date_purchase' => 'required|date',
-        ]);
-
-        $itAsset = ITAsset::findOrFail($id);
-        $itAsset->update([
-            'name' => $request->name,
-            'assigned_status' => $request->assigned_status,
-            'date_purchase' => $request->date_purchase,
-        ]);
-
+            'serial_no' => ['required','string','max:191',Rule::unique('it_assets')->ignore($itAsset->id)],
+            'status' => 'required|in:Running,Failure',
+            'warranty_available' => 'required|in:Yes,No', 
+            'warranty_due_date' => 'nullable|date',
+            'license_available' => 'required|in:1,0', 
+            'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
+        ];
+        $validatedData = $request->validate($validationRules);
+        // Prepare data for update array
+        $dataToUpdate = $validatedData;
+        // Change 'warranty_available' from 'Yes'/'No' to 1/0 for DB
+        $dataToUpdate['warranty_available'] = ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
+        // Set the actual 'user_id' based on 'assigned_status'
+        if ($validatedData['assigned_status'] == 'Assigned') {
+            $dataToUpdate['user_id'] = $validatedData['assigned_user_id'];
+        } else {
+            $dataToUpdate['user_id'] = null;
+        }
+        unset($dataToUpdate['assigned_user_id']);
+        // Update the data in DB
+        $itAsset->update($dataToUpdate);
         return redirect()->route('it_assets.index')->with('success', 'IT Asset updated successfully!');
     }
 
@@ -101,10 +98,8 @@ class ITAssetController extends Controller
     {
         $itAsset = ITAsset::findOrFail($id);
         $itAsset->delete();
-
         return redirect()->route('it_assets.index')->with('success', 'IT Asset deleted successfully!');
     }
-
 
     public function create()
     {
@@ -112,7 +107,6 @@ class ITAssetController extends Controller
         return view('it_assets.create', compact('users'));
     }
 
-    
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -125,15 +119,29 @@ class ITAssetController extends Controller
             'date_purchase' => 'required|date',
             'serial_no' => 'required|string|max:191|unique:it_assets,serial_no',
             'status' => 'required|in:Running,Failure',
+            'warranty_available' => 'required|in:Yes,No',
             'warranty_due_date' => 'nullable|date',
             'license_available' => 'required|in:1,0',
             'license_id' => 'nullable|integer',
-            'user_id' => 'nullable|integer',
+            'assigned_user_id' => 'required_if:assigned_status,Assigned|nullable|exists:users,id',
         ]);
-
-            ITAsset::create($validatedData);
-    
-            return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
+        $dataToCreate = $validatedData; 
+        // Convert 'warranty_available' from 'Yes'/'No' to 1/0
+        $dataToCreate['warranty_available'] = 
+        ($validatedData['warranty_available'] === 'Yes') ? 1 : 0;
+        // Set the actual 'user_id' based on 'assigned_status'
+        if ($validatedData['assigned_status'] == 'Assigned') {
+            // Use the validated ID submitted from the 'assigned_user_id' select dropdown
+            $dataToCreate['user_id'] = $validatedData['assigned_user_id'];
+        } else {
+            // If status is 'Unassigned', ensure user_id is null
+            $dataToCreate['user_id'] = null;
+        }
+        // The actual DB column is 'user_id', not 'assigned_user_id'
+        unset($dataToCreate['assigned_user_id']);
+        // Create the IT Asset record
+        ITAsset::create($dataToCreate);
+        return redirect()->route('it_assets.index')->with('success', 'IT Asset created successfully!');
     }
 
     // public function show($id, Request $request)
