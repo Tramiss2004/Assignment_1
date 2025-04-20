@@ -1,3 +1,8 @@
+<head>
+    <!-- Link CSS -->
+     <link rel="stylesheet" href="{{ asset('css/ITAssetCreate.css') }}">
+</head>
+
 <div class="container">
     <h2>Create New License</h2>
 
@@ -20,150 +25,80 @@
 
         <div class="mb-3">
             <label class="form-label">License Version: </label>
-            <input type="text" name="name" class="form-control" value="{{ old('version') }}" required>
+            <input type="text" name="version" class="form-control" value="{{ old('version') }}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Assigned Status</label>
-            <select name="assigned_status" id="assigned_status" class="form-control" required onchange="toggleAssignedUser()">
-                <option value="Unassigned" {{ old('assigned_status') == 'Unassigned' ? 'selected' : '' }}>Unassigned</option>
-                <option value="Assigned" {{ old('assigned_status') == 'Assigned' ? 'selected' : '' }}>Assigned</option>
-            </select>
-        </div>
-
-        <!-- User selection appears only if 'Assigned' is chosen -->
-        <div class="mb-3" id="assigned_user_div" style="display: none;">
-            <label class="form-label">Assign to User</label>
-            <select name="assigned_user_id" class="form-control">
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        @extends('layouts.app')
-
-        @section('content')
-         <div class="container">
-            <h2>Add New License</h2>
-         <form action="{{ route('licenses.store') }}" method="POST">
-        @csrf
-        <input type="text" name="software_license" placeholder="Software License" class="form-control mb-2">
-        <input type="date" name="date_purchase" class="form-control mb-2">
-        <input type="text" name="license_type" placeholder="License Type" class="form-control mb-2">
-        <input type="number" name="quantity" placeholder="Quantity" class="form-control mb-2">
-        <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-        </div>
-
-        <!-- resources/views/license/create.blade.php -->
-        <h1>Create License</h1>
-        <form method="POST" action="{{ route('license.store') }}">
-         @csrf
-        <input type="text" name="name" placeholder="License Name">
-        <button type="submit">Save</button>
-        </form>
-
-        <div class="mb-3">
-            <label class="form-label">Category</label>
-            <input type="text" name="category" class="form-control" value="{{ old('category') }}" required>
+            <label class="form-label">Expiry Date: </label>
+            <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date') }}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Brand</label>
-            <input type="text" name="brand" class="form-control" value="{{ old('brand') }}" required>
+            <label class="form-label">Status: </label>
+            <input type="text" id="status" name="status" class="form-control" value="{{ old('status') == 1 ? 'Valid' : 'Expired' }}" readonly>
+            <input type="hidden" name="status_value" id="status_value" value="{{ old('status') }}">
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Model</label>
-            <input type="text" name="model" class="form-control" value="{{ old('model') }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Operating System</label>
-            <select name="operating_system" class="form-control" required>
-                <option value="Windows 10" {{ old('operating_system') == 'Windows 10' ? 'selected' : '' }}>Windows 10</option>
-                <option value="Windows 11" {{ old('operating_system') == 'Windows 11' ? 'selected' : '' }}>Windows 11</option>
-                <option value="macOS Ventura" {{ old('operating_system') == 'macOS Ventura' ? 'selected' : '' }}>macOS Ventura</option>
-                <option value="macOS Monterey" {{ old('operating_system') == 'macOS Monterey' ? 'selected' : '' }}>macOS Monterey</option>
-                <option value="Linux Ubuntu" {{ old('operating_system') == 'Linux Ubuntu' ? 'selected' : '' }}>Linux Ubuntu</option>
-                <option value="Linux Fedora" {{ old('operating_system') == 'Linux Fedora' ? 'selected' : '' }}>Linux Fedora</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Purchase Date</label>
-            <input type="date" name="date_purchase" class="form-control" value="{{ old('date_purchase') }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Serial Number</label>
+            <label class="form-label">Serial No: </label>
             <input type="text" name="serial_no" class="form-control" value="{{ old('serial_no') }}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-control" required>
-                <option value="Running" {{ old('status') == 'Running' ? 'selected' : '' }}>Running</option>
-                <option value="Failure" {{ old('status') == 'Failure' ? 'selected' : '' }}>Failure</option>
+            <label class="form-label">Vendor: </label>
+            <input type="text" name="vendor" class="form-control" value="{{ old('vendor') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Purchase Date: </label>
+            <input type="date" name="date_purchase" class="form-control" value="{{ old('date_purchase') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">License Type: </label>
+            <select name="license_type" id="license_type" class="form-control" required>
+                <option value="Permanent" {{ old('license_type') == 'Permanent' ? 'selected' : '' }}>Permanent</option>
+                <option value="Renewable" {{ old('license_type') == 'Renewable' ? 'selected' : '' }}>Renewable</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Warranty Due Date</label>
-            <input type="date" name="warranty_due_date" id="warranty_due_date" class="form-control" value="{{ old('warranty_due_date') }}" onchange="calculateWarranty()">
-        </div>
-
-        <!-- Warranty Availability is calculated automatically -->
-        <div class="mb-3">
-            <label class="form-label">Warranty Available</label>
-            <input type="text" id="warranty_available" name="warranty_available" class="form-control" value="{{ old('warranty_available') == 1 ? 'Yes' : 'No' }}" readonly>
+            <label class="form-label">Product Key: </label>
+            <input type="text" name="product_key" class="form-control" value="{{ old('product_key') }}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">License Available</label>
-            <select name="license_available" class="form-control">
-                <option value="1" {{ old('license_available') == '1' ? 'selected' : '' }}>Yes</option>
-                <option value="0" {{ old('license_available') == '0' ? 'selected' : '' }}>No</option>
-            </select>
+            <label class="form-label">Quantity: </label>
+            <input type="text" name="quantity" class="form-control" value="{{ old('quantity') }}" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Create IT Asset</button>
+        <button type="submit" class="btn btn-success">Create License</button>
     </form>
 
 </div>
 
 <script>
-    function calculateWarranty() {
-        let warrantyDueDate = document.getElementById("warranty_due_date").value;
-        let warrantyAvailable = document.getElementById("warranty_available");
+    function calculateExpiryDate() {
+        const expiryInput = document.querySelector('[name="expiry_date"]');
+        const statusText = document.getElementById("status"); // this is the visible text input
+        const statusHidden = document.getElementById("status_value"); // this is the hidden field
 
-        if (!warrantyDueDate) {
-            warrantyAvailable.value = "No"; // Display No
-            warrantyAvailable.setAttribute("data-value", "0"); // Store 0 internally
-            return;
-        }
+        const expiryDateStr = expiryInput.value;
 
-        let today = new Date();
-        let dueDate = new Date(warrantyDueDate);
+        if (!expiryDateStr) return;
 
-        let isWarrantyValid = dueDate >= today ? 1 : 0;
-        warrantyAvailable.value = isWarrantyValid ? "Yes" : "No"; // Display Yes/No
-        warrantyAvailable.setAttribute("data-value", isWarrantyValid); // Store 1/0
+        const expiryDate = new Date(expiryDateStr); // works because you're using <input type="date">
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const isValid = expiryDate >= today ? 1 : 0;
+        statusText.value = isValid ? "Valid" : "Expired";
+        statusHidden.value = isValid;
     }
 
-
-    function toggleAssignedUser() {
-        let assignedStatus = document.getElementById("assigned_status").value;
-        let assignedUserDiv = document.getElementById("assigned_user_div");
-
-        assignedUserDiv.style.display = (assignedStatus === "Assigned") ? "block" : "none";
-    }
-
-    // Run calculations on page load if values exist
     document.addEventListener("DOMContentLoaded", function () {
-        calculateWarranty();
-        toggleAssignedUser();
+        calculateExpiryDate();
+        document.querySelector('[name="expiry_date"]').addEventListener("change", calculateExpiryDate);
     });
 </script>
 

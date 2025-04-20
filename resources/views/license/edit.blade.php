@@ -1,82 +1,112 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBN: Update License</title>
+    <link rel="stylesheet" href="{{ asset('css/ITAssetCreate.css') }}"> {{-- Assuming same CSS --}}
+    {{-- Add other necessary CSS/JS links (e.g., Bootstrap if needed) --}}
+</head>
+
+
 <div class="container">
-    <h2>Update IT Asset</h2>
+    <h2>Update License (License ID: {{ $license->id }})</h2>
+
+    {{-- Display validation errors if any --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     
-    <form action="{{ route('it_assets.update', $itAsset->id) }}" method="POST">
+    <form action="{{ route('license.update', $license->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <input type="hidden" name="id" value="{{ $itAsset->id }}">
-
         <div class="mb-3">
-            <label for="name" class="form-label">Asset Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $itAsset->name) }}" required>
+            <label class="form-label">License Name: </label>
+            <input type="text" name="name" class="form-control" value="{{ old('name', $license->name) }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="assigned_status" class="form-label">Assigned Status</label>
-            <select class="form-control" id="assigned_status" name="assigned_status" required>
-                <option value="Assigned" {{ old('assigned_status', $itAsset->assigned_status) == 'Assigned' ? 'selected' : '' }}>Assigned</option>
-                <option value="Unassigned" {{ old('assigned_status', $itAsset->assigned_status) == 'Unassigned' ? 'selected' : '' }}>Unassigned</option>
+            <label class="form-label">License Version: </label>
+            <input type="text" name="version" class="form-control" value="{{ old('version', $license->version) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Expiry Date: </label>
+            <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date', $license->expiry_date) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status: </label>
+            <input type="text" id="status" name="status" class="form-control" value="{{ old('status', $license->status) == 1 ? 'Valid' : 'Expired' }}" readonly>
+            <input type="hidden" name="status_value" id="status_value" value="{{ old('status') }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Serial No: </label>
+            <input type="text" name="serial_no" class="form-control" value="{{ old('serial_no', $license->serial_no) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vendor: </label>
+            <input type="text" name="vendor" class="form-control" value="{{ old('vendor', $license->vendor) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Purchase Date: </label>
+            <input type="date" name="date_purchase" class="form-control" value="{{ old('date_purchase', $license->date_purchase) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">License Type: </label>
+            <select name="license_type" id="license_type" class="form-control" required>
+                <option value="Permanent" {{ old('license_type') == 'Permanent' ? 'selected' : '' }}>Permanent</option>
+                <option value="Renewable" {{ old('license_type') == 'Renewable' ? 'selected' : '' }}>Renewable</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <input type="text" class="form-control" id="category" name="category" value="{{ old('category', $itAsset->category) }}" required>
-        </div>
-
-        <!-- resources/views/license/edit.blade.php -->
-        <h1>Edit License</h1>
-        <form method="POST" action="{{ route('license.update', $id) }}">
-        @csrf
-        @method('PUT')
-        <input type="text" name="name" value="Existing license name">
-        <button type="submit">Update</button>
-        /form>
-
-
-<<<<<<< HEAD
-            <button type="submit" class="btn btn-primary">Update Asset</button>
-            <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-<x-footer />
-=======
-        <div class="mb-3">
-            <label for="brand" class="form-label">Brand</label>
-            <input type="text" class="form-control" id="brand" name="brand" value="{{ old('brand', $itAsset->brand) }}" required>
+            <label class="form-label">Product Key: </label>
+            <input type="text" name="product_key" class="form-control" value="{{ old('product_key') }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="model" class="form-label">Model</label>
-            <input type="text" class="form-control" id="model" name="model" value="{{ old('model', $itAsset->model) }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="operating_system" class="form-label">Operating System</label>
-            <input type="text" class="form-control" id="operating_system" name="operating_system" value="{{ old('operating_system', $itAsset->operating_system) }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="date_purchase" class="form-label">Purchase Date</label>
-            <input type="date" class="form-control" id="date_purchase" name="date_purchase" value="{{ old('date_purchase', $itAsset->date_purchase) }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="serial_no" class="form-label">Serial Number</label>
-            <input type="text" class="form-control" id="serial_no" name="serial_no" value="{{ old('serial_no', $itAsset->serial_no) }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-control" id="status" name="status" required>
-                <option value="Running" {{ old('status', $itAsset->status) == 'Running' ? 'selected' : '' }}>Running</option>
-                <option value="Failure" {{ old('status', $itAsset->status) == 'Failure' ? 'selected' : '' }}>Failure</option>
-            </select>
+            <label class="form-label">Quantity: </label>
+            <input type="text" name="quantity" class="form-control" value="{{ old('quantity') }}" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Update Asset</button>
-        <a href="{{ route('it_assets.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('license.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
->>>>>>> origin/AL
+
+
+<script>
+    function calculateExpiryDate() {
+        const expiryInput = document.querySelector('[name="expiry_date"]');
+        const statusText = document.getElementById("status"); // this is the visible text input
+        const statusHidden = document.getElementById("status_value"); // this is the hidden field
+
+        const expiryDateStr = expiryInput.value;
+
+        if (!expiryDateStr) return;
+
+        const expiryDate = new Date(expiryDateStr); // works because you're using <input type="date">
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const isValid = expiryDate >= today ? 1 : 0;
+        statusText.value = isValid ? "Valid" : "Expired";
+        statusHidden.value = isValid;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateExpiryDate();
+        document.querySelector('[name="expiry_date"]').addEventListener("change", calculateExpiryDate);
+    });
+</script>
+<x-footer />

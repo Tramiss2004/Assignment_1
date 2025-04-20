@@ -29,6 +29,7 @@
                     <th>Position</th>
                     <th>Department</th>
                     <th>Email</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

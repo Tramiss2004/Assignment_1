@@ -51,9 +51,11 @@
                  <option value="">-- Select User --</option> {{-- Add a default empty option --}}
                 @foreach($users as $user)
                     {{-- Select based on old input or current asset's user_id --}}
-                    <option value="{{ $user->id }}" {{ old('assigned_user_id', $itAsset->user_id) == $user->id ? 'selected' : '' }}>
-                        {{ $user->name }}
-                    </option>
+                    <option value="{{ $user->id }}" 
+                    {{ old('assigned_user_id', $itAsset->user_id) == $user->id ? 'selected' : '' }}>
+                    {{ $user->name }}
+                </option>
+
                 @endforeach
             </select>
         </div>
@@ -133,7 +135,7 @@
             {{-- Hidden input that gets submitted --}}
             <input type="hidden" id="warranty_available" name="warranty_available" value="{{ old('warranty_available', $itAsset->warranty_available) == 1 ? 'Yes' : 'No' }}"> {{-- Initial value for JS --}}
         </div>
-
+        
         {{-- License Available --}}
          <div class="mb-3">
             <label for="license_available" class="form-label">License Available</label>
@@ -142,12 +144,40 @@
                 <option value="0" {{ old('license_available', $itAsset->license_available) == 0 ? 'selected' : '' }}>No</option>
             </select>
         </div>
+        
+        {{-- License Action --}}
+        <div class="mb-3">
+            <label for="license_action" class="form-label">License Action</label>
+            <select name="license_action" id="license_action" class="form-control" onchange="toggleLicenseAction()">
+                <option value="none" {{ old('license_action') == 'none' ? 'selected' : '' }}>Do Nothing</option>
+                <option value="assign" {{ old('license_action') == 'assign' ? 'selected' : '' }}>Assign License</option>
+                <option value="unassign" {{ old('license_action') == 'unassign' ? 'selected' : '' }}>Unassign License</option>
+            </select>
+        </div>
 
-        {{-- License ID (Optional) --}}
-         {{-- <div class="mb-3">
-            <label for="license_id" class="form-label">License ID</label>
-            <input type="number" id="license_id" name="license_id" class="form-control" value="{{ old('license_id', $itAsset->license_id) }}">
-        </div> --}}
+        {{-- License Selection --}}
+        <div class="mb-3" id="license_select_group" style="display: none;">
+            <label for="license_id" class="form-label">Select License</label>
+            <select name="license_id" id="license_id" class="form-control">
+                <option value="">-- Select License --</option>
+                
+                {{-- Assignable Licenses --}}
+                @foreach($allLicenses as $license)
+                    <option class="license-option assign-option" value="{{ $license->id }}"
+                        {{ old('license_id') == $license->id ? 'selected' : '' }}>
+                        {{ $license->name }} ({{ $license->version }})
+                    </option>
+                @endforeach
+
+                {{-- Assigned Licenses (for unassign) --}}
+                @foreach($assignedLicenses as $license)
+                    <option class="license-option unassign-option" value="{{ $license->id }}"
+                        {{ old('license_id') == $license->id ? 'selected' : '' }}>
+                        {{ $license->name }} ({{ $license->version }}) [Assigned]
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
         {{-- Buttons --}}
         <div class="mb-3">
@@ -158,23 +188,18 @@
 </div>
 
 <script>
-    // Same JavaScript as in create.blade.php
     function calculateWarranty() {
         let warrantyDueDate = document.getElementById("warranty_due_date").value;
         let warrantyAvailableDisplay = document.getElementById("warranty_available_display"); // Visible field
         let warrantyAvailableHidden = document.getElementById("warranty_available"); // Hidden field
-
         if (!warrantyDueDate) {
             warrantyAvailableDisplay.value = "No";
-            warrantyAvailableHidden.value = "No"; // Submit "No" to match validation
+            warrantyAvailableHidden.value = "No"; // avoid error for validation
         } else {
             let today = new Date();
-            // Adjust date comparison for timezone differences if necessary
-            today.setHours(0, 0, 0, 0); // Set today to start of day
-            let dueDate = new Date(warrantyDueDate + 'T00:00:00'); // Ensure dueDate is treated as local start of day
-
+            today.setHours(0, 0, 0, 0); 
+            let dueDate = new Date(warrantyDueDate + 'T00:00:00'); 
             let isWarrantyValid = dueDate >= today; // true or false
-
             warrantyAvailableDisplay.value = isWarrantyValid ? "Yes" : "No";
             warrantyAvailableHidden.value = isWarrantyValid ? "Yes" : "No"; // Submit "Yes" or "No"
         }
@@ -184,24 +209,47 @@
         let assignedStatus = document.getElementById("assigned_status").value;
         let assignedUserDiv = document.getElementById("assigned_user_div");
         let assignedUserSelect = document.getElementById("assigned_user_id");
-
         if (assignedStatus === "Assigned") {
             assignedUserDiv.style.display = "block";
         } else {
             assignedUserDiv.style.display = "none";
-            assignedUserSelect.value = ""; // Clear selection if hiding
+            assignedUserSelect.value = "";
         }
     }
 
     // Run calculations and toggle on page load
     document.addEventListener("DOMContentLoaded", function () {
-        calculateWarranty(); // Calculate initial warranty status
-        toggleAssignedUser(); // Set initial visibility of user dropdown
+        calculateWarranty(); 
+        toggleAssignedUser(); 
+        toggleLicenseDropdown(); 
+        toggleLicenseAction();  
+        document.getElementById('license_action').addEventListener('change', toggleLicenseAction); 
     });
+
+    function toggleLicenseDropdown() {
+        let licenseAvailable = document.getElementById("license_available").value;
+        let licenseDiv = document.getElementById("license_selection_div");
+
+        licenseDiv.style.display = (licenseAvailable === "1") ? "block" : "none";
+    }
+
+    function toggleLicenseAction() {
+        const action = document.getElementById('license_action').value;
+        const licenseGroup = document.getElementById('license_select_group');
+        const licenseSelect = document.getElementById('license_id');
+        const assignOptions = document.querySelectorAll('.assign-option');
+        const unassignOptions = document.querySelectorAll('.unassign-option');
+        licenseGroup.style.display = (action === 'assign' || action === 'unassign') ? 'block' : 'none';
+        assignOptions.forEach(option => {
+            option.style.display = (action === 'assign') ? 'block' : 'none';
+        });
+        unassignOptions.forEach(option => {
+            option.style.display = (action === 'unassign') ? 'block' : 'none';
+        });
+        licenseSelect.value = '';
+    }
+
 </script>
-
-{{-- Include Footer if applicable --}}
-{{-- <x-footer /> --}}
-
 </body>
 </html>
+<x-footer />

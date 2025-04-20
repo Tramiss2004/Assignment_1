@@ -33,10 +33,10 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/license'> <!--to be changed-->
+                <a href='/license_list'>
                     <button>License</button>
                 </a>
-            </div>
+            </div> 
         </div>
 
         @elsecan('isAdmin')
@@ -56,17 +56,17 @@
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/ViewMaintenanceList'><!--show the list-->
+                <a href='/ViewMaintenanceList'>
                     <button>IT Asset Maintenance</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/user_list'><!--to be changed-->
+                <a href='/user_list'>
                     <button>User List</button>
                 </a>
             </div>
             <div class="button-wrapper">
-                <a href='/license'>
+                <a href='/license_list'>
                     <button>License</button>
                 </a>
             </div>
@@ -77,6 +77,7 @@
                 <h1>Sorry, this system might have some issues. Please wait the latest new. Thank you for your patience. </h1>
             </div>
         @endcan
+        <br>
 
         <div class="main-container">
             <div class="button-wrapper">
