@@ -76,12 +76,9 @@ class LicenseController extends Controller
 
     public function show($id)
     {
-        $license = License::with(['itAssets.user'])->findOrFail($id);
-        if (!$license) {
-            return abort(404, "License not found");
-        } else {
-            return view("license.show", ['license' => $license]);
-        }
+        $license = License::with('itAssets.user')->findOrFail($id);
+
+        return view('license.show', ['license' => $license]);
     }
 
     public function edit($id)

@@ -64,6 +64,7 @@
         <div class="mb-3">
             <label class="form-label">License Type: </label>
             <select name="license_type" id="license_type" class="form-control" required>
+                @php $currentLicenseType = old('license_type', $license->license_type); @endphp
                 <option value="Permanent" {{ old('license_type') == 'Permanent' ? 'selected' : '' }}>Permanent</option>
                 <option value="Renewable" {{ old('license_type') == 'Renewable' ? 'selected' : '' }}>Renewable</option>
             </select>
@@ -71,12 +72,12 @@
 
         <div class="mb-3">
             <label class="form-label">Product Key: </label>
-            <input type="text" name="product_key" class="form-control" value="{{ old('product_key') }}" required>
+            <input type="text" name="product_key" class="form-control" value="{{ old('product_key', $license->product_key) }}" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Quantity: </label>
-            <input type="text" name="quantity" class="form-control" value="{{ old('quantity') }}" required>
+            <input type="text" name="quantity" class="form-control" value="{{ old('quantity', $license->quantity) }}" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Update Asset</button>
