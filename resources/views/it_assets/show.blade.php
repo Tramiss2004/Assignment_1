@@ -64,6 +64,41 @@
     <p style="text-align: center;">No user assigned to this asset.</p>
 @endif
 
+{{-- Display Assigned License Details --}}
+<h3 style="text-align: center; margin-top: 30px;">Assigned License(s)</h3>
+
+@if ($asset->licenseDetails->isNotEmpty())
+    <div class="card">
+    <div class="row">
+        <div class="label">Has License Assigned</div>
+    </div>
+        @foreach ($asset->licenseDetails as $detail)
+            @if ($detail->license)   
+                <div class="row">
+                    <div class="label">License Name</div>
+                    <div class="value">{{ $detail->license_name }}</div>
+                </div>
+                <div class="row">
+                    <div class="label">Version</div>
+                    <div class="value">{{ $detail->license->version }}</div>
+                </div>
+                <div class="row">
+                    <div class="label">License Type</div>
+                    <div class="value">{{ $detail->license->license_type }}</div>
+                </div>
+                <div class="row">
+                    <div class="label">Product Key</div>
+                    <div class="value">{{ $detail->license->product_key }}</div>
+                </div>
+                <hr>
+            @endif
+        @endforeach
+    </div>
+@else
+    <p style="text-align: center;">No licenses assigned to this asset.</p>
+@endif
+
+
 
 <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
     <a href="{{ url('/it_assets') }}" class="btn-back">Back To List</a>

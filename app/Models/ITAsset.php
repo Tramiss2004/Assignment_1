@@ -48,7 +48,7 @@ class ITAsset extends Model
         'warranty_available',
         'warranty_due_date',
         'license_available',
-        'license_id',
+        // 'license_id',
         'user_id'
     ];
 }
