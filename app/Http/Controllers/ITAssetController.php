@@ -45,14 +45,12 @@ class ITAssetController extends Controller
     //see IT Asset details for single asset
     public function show($id)
     {
-        $asset = ITAsset::with('assignedUser')->findOrFail($id);
+        $asset = ITAsset::with(['assignedUser', 'licenseDetails.license'])->findOrFail($id);
         if (!$asset) {
             return abort(404, "Asset not found");
         }
         else{
-            return view("it_assets.show", [
-                'asset'=>$asset
-            ]);
+            return view('it_assets.show', compact('asset'));
         }
     }
 
