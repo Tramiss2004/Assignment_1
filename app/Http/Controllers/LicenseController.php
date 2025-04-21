@@ -28,7 +28,9 @@ class LicenseController extends Controller
                 ->orWhere('status', 'LIKE', "%{$search}%")
                 ->orWhere('serial_no', 'LIKE', "%{$search}%")
                 ->orWhere('vendor', 'LIKE', "%{$search}%")
-                ->orWhere('date_purchase', 'LIKE', "%{$search}%")->orWhere('license_type', 'LIKE', "%{$search}%")->orWhere('product_key', 'LIKE', "%{$search}%")
+                ->orWhere('date_purchase', 'LIKE', "%{$search}%")
+                ->orWhere('license_type', 'LIKE', "%{$search}%")
+                ->orWhere('product_key', 'LIKE', "%{$search}%")
                 ->orWhere('quantity', 'LIKE', "%{$search}%");
             });
         }
@@ -76,12 +78,9 @@ class LicenseController extends Controller
 
     public function show($id)
     {
-        $license = License::with(['itAssets.user'])->findOrFail($id);
-        if (!$license) {
-            return abort(404, "License not found");
-        } else {
-            return view("license.show", ['license' => $license]);
-        }
+        $license = License::with('itAssets.user')->findOrFail($id);
+
+        return view('license.show', ['license' => $license]);
     }
 
     public function edit($id)
@@ -93,7 +92,19 @@ class LicenseController extends Controller
     public function update(Request $request, $id)
     {
         $license = License::findOrFail($id);
-        $license->update($request->all());
+        $license_data = $request->validate([
+            'name' => 'required|string|max:255',
+            'version' => 'required|string|max:255',
+            'expiry_date' => 'nullable|date',
+            'status' => 'required|string|in:Valid,Expired',
+            'serial_no' => 'required|string|max:10|unique:licenses,serial_no',
+            'vendor' => 'required|string|max:255',
+            'date_purchase' => 'required|date',
+            'license_type' => 'required|string|in:Permanent,Renewable',
+            'product_key' => 'required|string|max:16|unique:licenses,product_key',
+            'quantity' => 'required|integer|min:2',
+        ]);
+        $license->update($license_data);
         return redirect()->route('license.index')->with('success', 'License updated successfully!');
     }
 

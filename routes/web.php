@@ -27,7 +27,7 @@ use App\Http\Controllers\UserController;
 // login page section
 
 Route::get('/', function () {
-    return view('LoginForStaff');
+    return view('Login');
 });
 
 Route::post('/', [UserController::class, 'login']);

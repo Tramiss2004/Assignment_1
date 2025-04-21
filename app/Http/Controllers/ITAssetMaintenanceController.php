@@ -44,7 +44,7 @@ class ITAssetMaintenanceController extends Controller
             'maintenance_cost' => 'nullable|numeric',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
-            'maintenance_type' => 'required|string',
+            'maintenance_type' => 'required|string|in: Service, Repair',
         ]);
 
         $maintenance->update($validated);
@@ -85,7 +85,7 @@ class ITAssetMaintenanceController extends Controller
             'maintenance_cost' => 'required|numeric|min:0',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
-            'maintenance_type' => 'required|string|max:255',
+            'maintenance_type' => 'required|string|in:Service,Repair',
         ]);
 
         // Create the IT Asset Maintenance record

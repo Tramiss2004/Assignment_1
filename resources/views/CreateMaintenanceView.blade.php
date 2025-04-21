@@ -1,4 +1,5 @@
 <head>
+    <title>GBN: Create IT Asset Maintenance</title>
     <!-- Link CSS -->
      <link rel="stylesheet" href="{{ asset('css/ITAssetCreate.css') }}">
 </head>
@@ -69,7 +70,10 @@
 
     <div class="mb-3">
         <label class="form-label">Maintenance Type</label>
-        <input type="text" name="maintenance_type" class="form-control" placeholder="e.g., Software Update, Hardware Repair" value="{{ old('maintenance_type') }}" required>
+        <select name="maintenance_type" class="form-control" required>
+            <option value="Service" {{ old('maintenance_type') == 'Service' ? 'selected' : '' }}>Service</option>
+            <option value="Repair" {{ old('maintenance_type') == 'Repair' ? 'selected' : '' }}>Repair</option>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-success">Create IT Asset Maintenance Detail</button>

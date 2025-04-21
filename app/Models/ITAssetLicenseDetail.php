@@ -9,12 +9,19 @@ class ITAssetLicenseDetail extends Model
 {
     use HasFactory;
 
+
     protected $table = 'it_asset_license_details';
 
-    protected $fillable = [
-        'it_asset_id',
-        'license_id',
-    ];
+    public function license()
+    {
+        return $this->hasOne(License::class, 'license_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id'); // assuming 'user_id' is the foreign key
+    }
+
 
     public function license()
     {
@@ -25,5 +32,6 @@ class ITAssetLicenseDetail extends Model
     {
         return $this->belongsTo(ITAsset::class, 'it_asset_id', 'id');
     }
+
 }
 
