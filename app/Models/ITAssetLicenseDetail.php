@@ -12,11 +12,6 @@ class ITAssetLicenseDetail extends Model
 
     protected $table = 'it_asset_license_details';
 
-    public function license()
-    {
-        return $this->hasOne(License::class, 'license_id');
-    }
-
     public function user()
     {
         return $this->hasOne(User::class, 'id'); // assuming 'user_id' is the foreign key
